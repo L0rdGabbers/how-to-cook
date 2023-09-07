@@ -1,0 +1,41 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div>Chicken Chow Mein</div>
+        <div>Pork Loin</div>
+        <div>Frozen Yogurt</div>
+      </div>
+      <div class="row">
+        <div>Cheese Board</div>
+        <div>Rhubarb Tart</div>
+        <div>Pasta and Pesto</div>
+      </div>
+    </div>
+  </div>
+  {% if is_paginated %}
+  <nav aria-label="Page Navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li>
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link">
+                &laquo; Prev
+            </a>
+        </li>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <li>
+            <a href="?page={{ page_obj.next_page_number }}" class="page-link">
+                &raquo; Next
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+
+{% endblock %}
