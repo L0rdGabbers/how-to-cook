@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
+import random
 from .models import Recipe, Comment
 
 

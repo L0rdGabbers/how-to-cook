@@ -4,14 +4,20 @@
   <div class="row">
     <div class="col-12">
       <div class="row">
-        <div><h2>Chicken Chow Mein</h2></div>
-        <div><h2>Pork Loin</h2></div>
-        <div><h2>Frozen Yogurt</h2></div>
+      {% for recipe in recipe_list %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2>{{ recipe.title }}</h2>
+                    <h3>{{ recipe.author }}</h3>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
       </div>
       <div class="row">
-        <div><h2>Cheese Board</h2></div>
-        <div><h2>Rhubarb Tart</h2></div>
-        <div><h2>Pasta and Pesto</h2></div>
+        {% endif %}
+      {% endfor %}
       </div>
     </div>
   </div>
