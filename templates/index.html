@@ -8,7 +8,7 @@
         <div class="col-md-4">
           <div class="card">
             <div class="card-body">
-              <a href="#">
+              <a href="{% url 'recipe_page' recipe.slug %}">
                 <h2 class="card-title">{{ recipe.title }}</h2>
                 <h3 class="card-text">{{ recipe.author }}</h3>
               </a>

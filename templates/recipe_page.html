@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <h1>{{ recipe.title }}</h1>
+      </div>
+      <div class="row">
+        <p>{{ recipe.author }} | {{ recipe.created_on }}</p>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <i class="fa-solid fa-gauge"></i>
+          <p>{{ recipe.difficulty }}</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fa-solid fa-stopwatch"></i>
+          <p>{{ recipe.time_to_prepare }} minutes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="image-container">
+        {% if "placeholder" in recipe.related_image.url %}
+        <img
+          class="img-fluid"
+          src="https://www.pexels.com/photo/blur-breakfast-close-up-cutlery-269257/"
+        />
+        {% else %}
+        <img class="img-fluid" src="{{ recipe.featured_image.url }}" />
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

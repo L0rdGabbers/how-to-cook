@@ -17,12 +17,12 @@ class RecipePage(View):
         recipe = get_object_or_404(queryset, slug=slug)
         comments = recipe.comments.filter(approved=True).order_by('created_on')
         rated = False
-        if recipe.likes.filter(id=self.reqeust.user.id).exists():
+        if recipe.star_rating.filter(id=self.request.user.id).exists():
             rated = True
 
         return render(
             request,
-            "recipe.html",
+            "recipe_page.html",
             {
                 "recipe": recipe,
                 "comments": comments,
