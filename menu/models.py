@@ -42,6 +42,8 @@ class Recipe(models.Model):
     def average_star_rating(self):
         average = mean(self.star_rating)
         return round(average, 0)
+    
+
 
 
 class Comment(models.Model):
