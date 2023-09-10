@@ -65,6 +65,26 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <h4>Comments:</h4>
+      <div class="card-body">
+        {% for comment in comments %}
+        <div class="container">
+          <div class="row">
+            <p class="font-weight-bold">{{ comment.name }}:</p>
+            <p>{{ comment.body | linebreaks }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
