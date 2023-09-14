@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic, View
+from django.urls import reverse_lazy
+from django.utils.text import slugify
 from .models import Recipe
-from .forms import CommentForm
+from .forms import CommentForm, RecipeForm
 
 
 class RecipeList(generic.ListView):
@@ -54,7 +56,7 @@ class RecipePage(View):
 
         return render(
             request,
-            "recipe_page.html",
+            "add_recipe.html",
             {
                 "recipe": recipe,
                 "comments": comments,
@@ -64,3 +66,19 @@ class RecipePage(View):
             },
         )
 
+
+
+class AddRecipePage(generic.CreateView):
+    form_class = RecipeForm
+    template_name = 'add_recipe.html'
+    success_url = reverse_lazy('home')
+    success_message = (
+        'Your recipe has been successfully submitted and is awaiting approval')
+    title = 'Add a job'
+
+    def form_valid(self, form):
+        form.instance.author_id = self.request.user.id
+        form.instance.slug = slugify(form.instance.title, allow_unicode=False)
+        form.instance.status = 1
+        super(AddRecipePage, self).form_valid(form)
+        return redirect('add_recipe')
