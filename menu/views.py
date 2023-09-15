@@ -8,7 +8,7 @@ from .forms import CommentForm, RecipeForm
 
 class RecipeList(generic.ListView):
     model = Recipe
-    queryset = Recipe.objects.filter(status=1).order_by('-created_on')
+    queryset = Recipe.objects.filter(status=1, approved=True).order_by('-created_on')
     template_name = 'index.html'
     paginate_by = 6
 
@@ -65,7 +65,6 @@ class RecipePage(View):
                 "comment_form": CommentForm()
             },
         )
-
 
 
 class AddRecipePage(generic.CreateView):

@@ -7,9 +7,9 @@ STATUS = ((0, "Draft"), (1, "Published"))
 
 
 class Recipe(models.Model):
-    BEGINNER = "B"
-    INTERMEDIATE = "I"
-    EXPERT = "E"
+    BEGINNER = "Beginner"
+    INTERMEDIATE = "Intermediate"
+    EXPERT = "Expert"
     DIFFICULTY_CHOICES = [
         (BEGINNER, "Beginner"),
         (INTERMEDIATE, "Intermediate"),
@@ -28,7 +28,7 @@ class Recipe(models.Model):
         User, related_name="recipe_rating", blank=True)
     time_to_prepare = models.PositiveIntegerField()
     difficulty = models.CharField(
-        max_length=1, choices=DIFFICULTY_CHOICES, default=BEGINNER)
+        max_length=12, choices=DIFFICULTY_CHOICES, default=BEGINNER)
     ingredients = models.TextField()
     instructions = models.TextField()
     approved = models.BooleanField(default=False)
