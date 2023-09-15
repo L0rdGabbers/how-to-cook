@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                {% for recipe in recipes %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="{% url 'recipe_page' recipe.slug %}">
+                                <h2 class="card-title">{{ recipe.title }}</h2>
+                                <h3 class="card-text">{{ recipe.author }}</h3>
+                            </a>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="card-text">Difficulty: {{ recipe.difficulty }}</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="card-text">
+                                            {{ recipe.time_to_prepare }} minutes
+                                        </p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="card-text">Rating : *****</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:3 %}
+            </div>
+            <div class="row">{% endif %} {% endfor %}</div>
+        </div>
+    </div>
+    {% if is_paginated %}
+    <nav aria-label="Page Navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">
+                    &laquo; Prev
+                </a>
+            </li>
+            {% endif %} {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}" class="page-link">
+                    &raquo; Next
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{% endblock %}

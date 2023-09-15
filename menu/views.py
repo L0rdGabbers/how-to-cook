@@ -82,3 +82,13 @@ class AddRecipePage(generic.CreateView):
         form.instance.status = 1
         super(AddRecipePage, self).form_valid(form)
         return redirect('add_recipe')
+
+
+class MyRecipesList(generic.ListView):
+    model = Recipe
+    template_name = 'my_recipes.html'
+    paginate_by = 6
+    context_object_name = 'recipes'
+
+    def get_queryset(self):
+        return Recipe.objects.filter(author=self.request.user)
