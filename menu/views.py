@@ -79,6 +79,7 @@ class AddRecipePage(generic.CreateView):
         form.instance.author_id = self.request.user.id
         form.instance.slug = slugify(form.instance.title, allow_unicode=False)
         form.instance.status = 1
+        form.instance.featured_image.url = ""
         super(AddRecipePage, self).form_valid(form)
         return redirect('add_recipe')
 
