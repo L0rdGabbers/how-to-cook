@@ -1,6 +1,10 @@
 {% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
+{% if request.user == recipe.author %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %} {{ form | crispy }}
     <button type="submit">Update!</button>
 </form>
+{% else %}
+<div class="alert alert-info">You do not have permission to alter this recipe</div>
+{% endif %}
 {% endblock %}
