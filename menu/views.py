@@ -2,13 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic, View
 from django.urls import reverse_lazy
 from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
+from django_summernote.widgets import SummernoteWidget
 from .models import Recipe
 from .forms import CommentForm, RecipeForm
 
 
 class RecipeList(generic.ListView):
     model = Recipe
-    queryset = Recipe.objects.filter(status=1, approved=True).order_by('-created_on')
+    queryset = Recipe.objects.filter(
+        status=1, approved=True).order_by('-created_on')
     template_name = 'index.html'
     paginate_by = 6
 
@@ -70,17 +73,16 @@ class RecipePage(View):
 class AddRecipePage(generic.CreateView):
     form_class = RecipeForm
     template_name = 'add_recipe.html'
-    success_url = reverse_lazy('home')
-    success_message = (
+    success_url = reverse_lazy('my_recipes')
+    success_message = _(
         'Your recipe has been successfully submitted and is awaiting approval')
-    title = 'Add a job'
 
     def form_valid(self, form):
         form.instance.author_id = self.request.user.id
         form.instance.slug = slugify(form.instance.title, allow_unicode=False)
         form.instance.status = 0
         super(AddRecipePage, self).form_valid(form)
-        return redirect('add_recipe')
+        return redirect('my_recipes')
 
 
 class MyRecipesList(generic.ListView):
@@ -89,7 +91,32 @@ class MyRecipesList(generic.ListView):
     paginate_by = 6
     context_object_name = 'recipes'
 
-    
-
     def get_queryset(self):
         return Recipe.objects.filter(author=self.request.user)
+
+
+class UpdateRecipePage(generic.UpdateView):
+    model = Recipe
+    form_class = RecipeForm
+    template_name = 'update_recipe.html'
+    success_url = reverse_lazy('my_recipes')
+
+    def form_valid(self, form):
+        form.instance.author_id = self.request.user.id
+        form.instance.slug = slugify(form.instance.title, allow_unicode=False)
+        form.instance.approved = False
+        form.instance.status = 0
+        super(UpdateRecipePage, self).form_valid(form)
+        return redirect('my_recipes')
+
+
+class SubmitRecipePage(generic.UpdateView):
+    model = Recipe
+    fields = []
+    template_name = 'submit_recipe.html'
+    success_url = reverse_lazy('my_recipes')
+
+    def form_valid(self, form):
+        form.instance.status = 1
+        super(SubmitRecipePage, self).form_valid(form)
+        return redirect('my_recipes')

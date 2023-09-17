@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <h1>Submit Recipe</h1>
+
+            <p>
+                Thank you for sharing your unique taste! If you're sure that your recipe is ready
+                then press the button to submit your recipe for approval.
+            </p>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %} {{ form | crispy }}
+                <button type="submit">Submit!</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
