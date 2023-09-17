@@ -13,7 +13,31 @@
               </a>
               <div class="col-12">
                 <div class="row">
-                  <div class="col-4">
+                    {% if recipe.status is 0 %}
+                    <div class="col-4 m-auto">
+                      <a class="btn btn-info">Submit Recipe</a>
+                    </div>
+                    {% else %}
+                    <div class="col-4 m-auto">
+                      {% if recipe.approved is False %}
+                      <div class="btn bg-white border-warning" style="pointer-events: none;">
+                        <p class="card-text">Approval Pending</p>
+                      </div>
+                    </div>
+                      {% else %}
+                      <div class="btn bg-white border-success" style="pointer-events: none;">
+                        <p class="card-text">Approved</p>
+                      </div>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                    <div class="col-4 m-auto">
+                        <a class="btn btn-warning">Edit</a>
+                    </div>
+                    <div class="col-4 m-auto">
+                        <a class="btn btn-danger">Delete</a>
+                    </div>
+                  <!-- <div class="col-4">
                     <p class="card-text">Difficulty: {{ recipe.difficulty }}</p>
                   </div>
                   <div class="col-4">
@@ -23,7 +47,7 @@
                   </div>
                   <div class="col-4">
                     <p class="card-text">Rating : *****</p>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

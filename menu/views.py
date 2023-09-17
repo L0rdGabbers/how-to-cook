@@ -78,8 +78,7 @@ class AddRecipePage(generic.CreateView):
     def form_valid(self, form):
         form.instance.author_id = self.request.user.id
         form.instance.slug = slugify(form.instance.title, allow_unicode=False)
-        form.instance.status = 1
-        form.instance.featured_image.url = ""
+        form.instance.status = 0
         super(AddRecipePage, self).form_valid(form)
         return redirect('add_recipe')
 
@@ -89,6 +88,8 @@ class MyRecipesList(generic.ListView):
     template_name = 'my_recipes.html'
     paginate_by = 6
     context_object_name = 'recipes'
+
+    
 
     def get_queryset(self):
         return Recipe.objects.filter(author=self.request.user)
