@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import generic, View
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -22,9 +23,7 @@ class RecipePage(View):
         queryset = Recipe.objects.filter(status=1)
         recipe = get_object_or_404(queryset, slug=slug)
         comments = recipe.comments.filter(approved=True).order_by('created_on')
-        rated = False
-        if recipe.star_rating.filter(id=self.request.user.id).exists():
-            rated = True
+        rate = 0
 
         return render(
             request,
@@ -33,7 +32,7 @@ class RecipePage(View):
                 "recipe": recipe,
                 "comments": comments,
                 "commented": False,
-                "rated": rated,
+                "rate": rate,
                 "comment_form": CommentForm()
             },
         )
@@ -42,9 +41,7 @@ class RecipePage(View):
         queryset = Recipe.objects.filter(status=1)
         recipe = get_object_or_404(queryset, slug=slug)
         comments = recipe.comments.filter(approved=True).order_by('created_on')
-        rated = False
-        if recipe.star_rating.filter(id=self.request.user.id).exists():
-            rated = True
+        rate = 0
 
         comment_form = CommentForm(data=request.POST)
 
@@ -64,7 +61,7 @@ class RecipePage(View):
                 "recipe": recipe,
                 "comments": comments,
                 "commented": True,
-                "rated": rated,
+                "rate": rate,
                 "comment_form": CommentForm()
             },
         )
@@ -132,3 +129,15 @@ class DeleteRecipePage(generic.DeleteView):
         super(DeleteRecipePage, self).form_valid(form)
         return redirect('my_recipes')
 
+
+class PostRating(View):
+
+    def post(self, request, slug):
+        recipe = get_object_or_404(Recipe, slug=slug)
+
+        if recipe.star_rating.filter(id=request.user.id).exists():
+            recipe.star_rating.remove(request.user)
+        else:
+            recipe.star_rating.add(request.user)
+        
+        return HttpResponseRedirect(reverse('recipe_page', args=[slug]))
