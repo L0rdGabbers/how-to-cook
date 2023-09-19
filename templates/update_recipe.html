@@ -1,10 +1,27 @@
-{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
-{% if request.user == recipe.author %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %} {{ form | crispy }}
-    <button type="submit">Update!</button>
-</form>
+{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %} {% if
+request.user == recipe.author %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <h1>Update '{{ recipe.title }}'</h1>
+
+            <p>
+                In order to ensure that this updated recipe is in accordance with our user friendly policy,
+                it will be removed from public view until approved by an admin.
+            </p>
+            <p>
+                <span class="font-weight-bold">Are you sure you want to resubmit this recipe?</span>
+            </p>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %} {{ form | crispy }}
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% else %}
-<div class="alert alert-info">You do not have permission to alter this recipe</div>
-{% endif %}
-{% endblock %}
+<div class="alert alert-info">
+    You do not have access to update this recipe.
+</div>
+{% endif %} {% endblock %}

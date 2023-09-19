@@ -120,3 +120,15 @@ class SubmitRecipePage(generic.UpdateView):
         form.instance.status = 1
         super(SubmitRecipePage, self).form_valid(form)
         return redirect('my_recipes')
+
+
+class DeleteRecipePage(generic.DeleteView):
+    model = Recipe
+    fields = []
+    template_name = 'delete_recipe.html'
+    success_url = reverse_lazy('my_recipes')
+
+    def form_valid(self, form):
+        super(DeleteRecipePage, self).form_valid(form)
+        return redirect('my_recipes')
+
