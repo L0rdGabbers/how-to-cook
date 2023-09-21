@@ -39,13 +39,6 @@ class Recipe(models.Model):
     def __str__(self):
         return self.title
 
-    def average_star_rating(self):
-        average = mean(self.star_rating)
-        return round(average, 0)
-
-    def total_star_count(self):
-        return self.star_rating.count
-
     def ingredients_list(self):
         return self.ingredients.split(",")
 
@@ -65,3 +58,20 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment {self.body} by {self.name}"
 
+
+class Rating(models.Model):
+    recipe = models.ForeignKey(
+        Recipe, on_delete=models.CASCADE, related_name='rating')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    score = models.IntegerField(default=0)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return f"Star rating {self.score} by {self.name}"
+
+    def rating(self):
+        return round(sum(recipe.star_rating.values) / len(recipe.star_rating.values), 0)

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 import random
-from .models import Recipe, Comment
+from .models import Recipe, Comment, Rating
 
 
 @admin.register(Recipe)
@@ -27,3 +27,10 @@ class CommentAdmin(admin.ModelAdmin):
 
     def approve_comments(self, request, queryset):
         queryset.update(approved=True)
+
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('name', 'score', 'created_on')
+    list_filter = ('score',)
+    search_fields = ['name', 'email', 'score']

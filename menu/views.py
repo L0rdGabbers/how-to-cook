@@ -23,7 +23,7 @@ class RecipePage(View):
         queryset = Recipe.objects.filter(status=1)
         recipe = get_object_or_404(queryset, slug=slug)
         comments = recipe.comments.filter(approved=True).order_by('created_on')
-        rate = 0
+        rating = recipe.rating.average
 
         return render(
             request,
@@ -32,8 +32,9 @@ class RecipePage(View):
                 "recipe": recipe,
                 "comments": comments,
                 "commented": False,
-                "rate": rate,
-                "comment_form": CommentForm()
+                "rating": average,
+                "comment_form": CommentForm(),
+                "rating_form": RatingForm()
             },
         )
 
@@ -41,30 +42,55 @@ class RecipePage(View):
         queryset = Recipe.objects.filter(status=1)
         recipe = get_object_or_404(queryset, slug=slug)
         comments = recipe.comments.filter(approved=True).order_by('created_on')
-        rate = 0
+        rating = recipe.rating
 
-        comment_form = CommentForm(data=request.POST)
 
-        if comment_form.is_valid():
-            comment_form.instance.email = request.user.email
-            comment_form.instance.name = request.user.username
-            comment = comment_form.save(commit=False)
-            comment.recipe = recipe
-            comment.save()
+        if request.form == 'POST' and 'comment_form' in request.POST:
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                comment_form.instance.email = request.user.email
+                comment_form.instance.name = request.user.username
+                comment = comment_form.save(commit=False)
+                comment.recipe = recipe
+                comment.save()
+            else:
+                comment_form = CommentForm()
+            return render(
+                request,
+                "recipe_page.html",
+                {
+                    "recipe": recipe,
+                    "comments": comments,
+                    "commented": True,
+                    "rating": rating,
+                    "comment_form": CommentForm(),
+                    "rating_form": RatingForm()
+                }
+            )
         else:
-            comment_form = CommentForm()
+            rating_form = RatingForm(data=request.POST)
+            if rating_form.is_valid():
+                rating_form.instance.email = request.user.email
+                rating_form.instance.name = request.user.username
+                rating = rating_form.save(commit=True)
+                rating.recipe = recipe
+                rating.save()
+            else:
+                rating_form = RatingForm()
+            return render(
+                request,
+                "recipe_page.html",
+                {
+                    "recipe": recipe,
+                    "comments": comments,
+                    "commented": False,
+                    "rating": rating,
+                    "comment_form": CommentForm(),
+                    "rating_form": RatingForm()
+                },
+            )
 
-        return render(
-            request,
-            "add_recipe.html",
-            {
-                "recipe": recipe,
-                "comments": comments,
-                "commented": True,
-                "rate": rate,
-                "comment_form": CommentForm()
-            },
-        )
+
 
 
 class AddRecipePage(generic.CreateView):
@@ -129,15 +155,3 @@ class DeleteRecipePage(generic.DeleteView):
         super(DeleteRecipePage, self).form_valid(form)
         return redirect('my_recipes')
 
-
-class PostRating(View):
-
-    def post(self, request, slug):
-        recipe = get_object_or_404(Recipe, slug=slug)
-
-        if recipe.star_rating.filter(id=request.user.id).exists():
-            recipe.star_rating.remove(request.user)
-        else:
-            recipe.star_rating.add(request.user)
-        
-        return HttpResponseRedirect(reverse('recipe_page', args=[slug]))

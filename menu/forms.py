@@ -1,4 +1,4 @@
-from .models import Comment, Recipe
+from .models import Comment, Recipe, Rating
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 from django.utils.translation import gettext_lazy as _
@@ -24,3 +24,8 @@ class RecipeForm(forms.ModelForm):
             'featured_image': _('Image'),
             'time_to_prepare': _('Time to prepare (in minutes)')
         }
+
+class StarRatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ('score',)

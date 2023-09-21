@@ -93,11 +93,11 @@
             {% csrf_token %}
             {% if rate == 0 %}
             
-            <button type="submit" name="review_rating" id="star-1" class="star-btn" value="1"><i class="fas fa-star"></i></button>
-            <button type="submit" name="review_rating" id="star-2" class="star-btn" value="2"><i class="fas fa-star"></i></button>
-            <button type="submit" name="review_rating" id="star-3" class="star-btn" value="3"><i class="fas fa-star"></i></button>
-            <button type="submit" name="review_rating" id="star-4" class="star-btn" value="4"><i class="fas fa-star"></i></button>
-            <button type="submit" name="review_rating" id="star-5" class="star-btn" value="5"><i class="fas fa-star"></i></button>
+            <button type="submit" name="star" id="star-1" class="star-btn" value="1"><i class="fas fa-star"></i></button>
+            <button type="submit" name="star" id="star-2" class="star-btn" value="2"><i class="fas fa-star"></i></button>
+            <button type="submit" name="star" id="star-3" class="star-btn" value="3"><i class="fas fa-star"></i></button>
+            <button type="submit" name="star" id="star-4" class="star-btn" value="4"><i class="fas fa-star"></i></button>
+            <button type="submit" name="star" id="star-5" class="star-btn" value="5"><i class="fas fa-star"></i></button>
 
             {% else %}
             <p>Banana</p>
@@ -116,7 +116,7 @@
         <p>Posting as: {{ user.username }}</p>
         <form method="post" style="margin-top: 1.3em">
             {{ comment_form | crispy }} {% csrf_token %}
-            <button type="submit" class="btn btn-lg">Submit</button>
+            <button type="submit" name="comment_form" class="btn btn-lg">Submit</button>
         </form>
         {% endif %}
       </div>
