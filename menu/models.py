@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from statistics import mean
@@ -36,8 +37,11 @@ class Recipe(models.Model):
     class Meta:
         ordering = ['-created_on']
 
+    def average_star_rating(self) -> float:
+        return Rating.objects.filter(recipe=self).aggregate(Avg("rating"))["rating__avg"] or 0
+
     def __str__(self):
-        return self.title
+        return f"{self.title}: {self.average_star_rating()}"
 
     def ingredients_list(self):
         return self.ingredients.split(",")
@@ -60,18 +64,9 @@ class Comment(models.Model):
 
 
 class Rating(models.Model):
-    recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE, related_name='rating')
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
-    score = models.IntegerField(default=0)
-    created_on = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ['created_on']
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"Star rating {self.score} by {self.name}"
-
-    def rating(self):
-        return round(sum(recipe.star_rating.values) / len(recipe.star_rating.values), 0)
+        return f"{self.recipe.header}: {self.rating}"

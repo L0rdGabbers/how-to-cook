@@ -9,4 +9,5 @@ urlpatterns = [
     path('update/<slug:slug>/', views.UpdateRecipePage.as_view(), name='update_recipe'),
     path('submit/<slug:slug>/', views.SubmitRecipePage.as_view(), name='submit_recipe'),
     path('delete/<slug:slug>/', views.DeleteRecipePage.as_view(), name='delete_recipe'),
+    path('rate/<int:post_id>/<int:rating>/', views.rate),
 ]
