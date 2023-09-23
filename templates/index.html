@@ -24,8 +24,14 @@
                   </div>
                   <div class="col-4">
                     <p class="card-text">
-                        Rating: {{ recipe.average_star_rating }}
+                        Rating: 
+                            <span class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"></span>
                     </p>
+                  </div>
                 </div>
               </div>
             </div>
