@@ -1,5 +1,10 @@
 {% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
-
+{% if recipe.approved == False and request.user != recipe.author %}
+<div class="alert alert-info">
+    <p>This recipe has not been approved by an admin, and can only be viewed by the author.</p>
+    <p>To view recipes approved by our admins, please <a href="{% url 'home' %}">click here</a>.</p>
+</div>
+{% else %}
 <div class="container mb-4">
   <div class="row">
     <div class="col-md-6">
@@ -140,6 +145,7 @@
     {% endif %}
   </div>
 </div>
+{% endif %}
 <script>
     const rate = (rating, post_id) => {
         fetch(`/rate/${post_id}/${rating}/`, {

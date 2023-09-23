@@ -23,7 +23,11 @@ class RecipePage(View):
         queryset = Recipe.objects.filter(status=1)
         recipe = get_object_or_404(queryset, slug=slug)
         comments = recipe.comments.filter(approved=True).order_by('created_on')
-        rating = Rating.objects.filter(recipe=recipe, user=request.user).first()
+        if request.user.is_authenticated:
+            rating = Rating.objects.filter(
+                recipe=recipe, user=request.user).first()
+        else:
+            rating = 0
         recipe.user_rating = rating.rating if rating else 0
 
         return render(
@@ -42,8 +46,11 @@ class RecipePage(View):
         queryset = Recipe.objects.filter(status=1)
         recipe = get_object_or_404(queryset, slug=slug)
         comments = recipe.comments.filter(approved=True).order_by('created_on')
-        rating = Rating.objects.filter(
-            recipe=recipe, user=request.user).first()
+        if request.user.is_authenticated:
+            rating = Rating.objects.filter(
+                recipe=recipe, user=request.user).first()
+        else:
+            rating = 0
         recipe.user_rating = rating.rating if rating else 0
 
         comment_form = CommentForm(data=request.POST)
