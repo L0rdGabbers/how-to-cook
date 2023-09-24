@@ -68,7 +68,7 @@ class RecipePage(View):
             {
                 "recipe": recipe,
                 "comments": comments,
-                "commented": False,
+                "commented": True,
                 "rating": rating,
                 "comment_form": CommentForm(),
             }
@@ -93,7 +93,7 @@ class AddRecipePage(generic.CreateView):
 class MyRecipesList(generic.ListView):
     model = Recipe
     template_name = 'my_recipes.html'
-    paginate_by = 6
+    paginate_by = 9
     context_object_name = 'recipes'
 
     def get_queryset(self):

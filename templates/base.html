@@ -27,20 +27,13 @@
   <body>
     <!-- Navigation Bar -->
 
-    <nav class="navbar navbar-dark navbar-expand-lg bg-success">
+    <nav class="navbar navbar-dark navbar-expand-md bg-success mb-4">
       <a class="navbar-brand" href="{% url 'home' %}">Time to Dine</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarItems"
-        aria-controls="navbarItems"
-        aria-expanded="false"
-        aria-label="Toggle Navbar"
-      >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarItems">
+    </button>
+      <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="navbar-nav mr-auto mb-lg-0">
           <li class="nav-item">
             <a
@@ -121,11 +114,13 @@
     </main>
 
     <!-- Footer -->
-
-    <footer>
-      <p>&copy; Gabriel Marriage</p>
-      <p>+44 7307 166575</p>
-      <p>gabrielmarriage@me.com</p>
+    <div id="footer-space"></div>
+    <footer class="footer py-1 bg-dark">
+      <ul class="nav">
+        <li class="px-4"><p class="text-white">&copy; Gabriel Marriage</p></li>
+        <li class="px-4"><p class="text-white">+44 7307 166575</p></li>
+        <li class="px-4"><p class="text-white">gabrielmarriage@me.com</p></li>
+      </ul>
     </footer>
     <script>
       setTimeout(function () {

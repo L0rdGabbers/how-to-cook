@@ -9,12 +9,12 @@
           <div class="card">
             <div class="card-body">
               {% if recipe.status is 1 %}
-              <a href="{% url 'recipe_page' recipe.slug %}">
+              <a class="recipe-link text-success" href="{% url 'recipe_page' recipe.slug %}">
                 <h2 class="card-title">{{ recipe.title }}</h2>
               </a>
               {% else %}
-              <a href="{% url 'update_recipe' recipe.slug %}">
-                <h2 class="card-title text-warning">{{ recipe.title }}</h2>
+              <a class="recipe-link text-warning" href="{% url 'update_recipe' recipe.slug %}">
+                <h2 class="card-title">{{ recipe.title }}</h2>
               </a>
               {% endif %}
               <div class="col-12">

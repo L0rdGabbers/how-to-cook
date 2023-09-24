@@ -25,8 +25,6 @@ class Recipe(models.Model):
     featured_image = CloudinaryField('image', default='placeholder', null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    star_rating = models.ManyToManyField(
-        User, related_name="recipe_rating", blank=True)
     time_to_prepare = models.PositiveIntegerField()
     difficulty = models.CharField(
         max_length=12, choices=DIFFICULTY_CHOICES, default=BEGINNER)

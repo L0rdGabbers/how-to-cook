@@ -2,35 +2,70 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12">
+    <div class="col-10 mt-2 offset-1">
       <div class="row">
         {% for recipe in recipe_list %}
-        <div class="col-md-4">
-          <div class="card">
+        <div class="col-md-6">
+          <div id="recipe-card" class="card mb-5">
             <div class="card-body">
-              <a href="{% url 'recipe_page' recipe.slug %}">
-                <h2 class="card-title">{{ recipe.title }}</h2>
-                <h3 class="card-text">{{ recipe.author }}</h3>
-              </a>
-              <div class="col-12">
-                <div class="row">
-                  <div class="col-4">
-                    <p class="card-text">Difficulty: {{ recipe.difficulty }}</p>
+              <div class="row">
+                <div class="col-md-8">
+                  <a class="recipe-link text-success" href="{% url 'recipe_page' recipe.slug %}">
+                    <h2 class="card-title">{{ recipe.title }}</h2>
+                  </a>
+                  <h3 class="card-text">by {{ recipe.author }}</h3>
+                </div>
+                <div class="col-md-4">
+                  <div class="image-container">
+                    {% if "placeholder" in recipe.featured_image.url %}
+                    <img
+                      id="main-page-image"
+                      class="card-img-top"
+                      src="https://images.pexels.com/photos/269257/pexels-photo-269257.jpeg"
+                      alt="image of {{ recipe.title }}"
+                    />
+                    {% else %}
+                    <img
+                      id="main-page-image"
+                      class="card-img-top"
+                      src=" {{ recipe.featured_image.url }}"
+                      alt="image of {{ recipe.title }}"
+                    />
+                    {% endif %}
                   </div>
-                  <div class="col-4">
-                    <p class="card-text">
-                      {{ recipe.time_to_prepare }} minutes
-                    </p>
-                  </div>
-                  <div class="col-4">
-                    <p class="card-text">
-                        Rating: 
-                            <span class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"></span>
-                            <span class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"></span>
-                            <span class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"></span>
-                            <span class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"></span>
-                            <span class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"></span>
-                    </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 mt-2">
+                  <div class="row">
+                    <div class="col-4">
+                      <p class="card-text mb-0">Difficulty: {{ recipe.difficulty }}</p>
+                    </div>
+                    <div class="col-4">
+                      <p class="card-text">
+                        {{ recipe.time_to_prepare }} minutes
+                      </p>
+                    </div>
+                    <div class="col-4">
+                      <p class="card-text mb-0">Rating:</p>
+                      <p class="nowrap">
+                        <span
+                          class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"
+                        ></span>
+                        <span
+                          class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"
+                        ></span>
+                        <span
+                          class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"
+                        ></span>
+                        <span
+                          class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"
+                        ></span>
+                        <span
+                          class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"
+                        ></span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -51,7 +86,7 @@
           &laquo; Prev
         </a>
       </li>
-      {% endif %} {% if page_obj.has_next %}
+        {% endif %} {% if page_obj.has_next %}
       <li>
         <a href="?page={{ page_obj.next_page_number }}" class="page-link">
           &raquo; Next
