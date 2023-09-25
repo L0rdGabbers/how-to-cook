@@ -4,13 +4,20 @@
   <div class="row">
     <div class="col-10 mt-2 offset-1">
       <div class="row mb-4">
+        {% if recipe_list  %}
+        {% if request.path == '/' %}
         <h1 class="text-center">Welcome to Time to Dine</h1>
         <h2 class="text-center">Below are some of the many recipes created by people just like you!</h2>
-      </div>
+        {% elif '/category/' in request.path %}
+        <h1 class="text-center">{{ recipe_category }}</h1>
+        {% endif %}
+        {% else %}
+        <h1 class="text-center">There are no recipes {% if '/category/' in request.path %} of this category {% endif %} available.</h1>
+        {% endif %}
       <div class="row">
         {% for recipe in recipe_list %}
         <div class="col-md-6">
-          <div id="recipe-card" class="card mb-5">
+          <div class="card mb-5 recipe-card">
             <div class="card-body">
               <div class="row">
                 <div class="col-md-8">
@@ -102,7 +109,7 @@
   {% endif %}
   <div class="col-10 mt-4 offset-1">
     <div class="row">
-        <h5 class="text-center">Don't forget that you can submit your own recipes to be enjoyed by the public</h4>
+        <h5 class="text-center">Don't forget that you can <a href="{% url 'add_recipe' %}">create your own recipes</a> to be enjoyed by the public</h4>
     </div>
   </div>
 </div>

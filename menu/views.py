@@ -148,6 +148,7 @@ class CategoryPage(generic.ListView):
             "index.html",
             {
                 "recipe_list": queryset,
+                "recipe_category": query,
             }
         )
 

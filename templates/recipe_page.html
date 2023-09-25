@@ -1,36 +1,69 @@
-{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
+{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %} 
 {% if recipe.approved == False and request.user != recipe.author %}
 <div class="alert alert-info">
-    <p>This recipe has not been approved by an admin, and can only be viewed by the author.</p>
-    <p>To view recipes approved by our admins, please <a href="{% url 'home' %}">click here</a>.</p>
+  <p>
+    This recipe has not been approved by an admin, and can only be viewed by the
+    author.
+  </p>
+  <p>
+    To view recipes approved by our admins, please
+    <a href="{% url 'home' %}">click here</a>.
+  </p>
 </div>
 {% elif recipe.status == 0 and request.user != recipe.author %}
 <div class="alert alert-info">
-    <p>The author has not published this page yet, meaning it can only be viewed by them.</p>
-    <p>To view published recipes please <a href="{% url 'home' %}">click here</a>.</p>
+  <p>
+    The author has not published this page yet, meaning it can only be viewed by
+    them.
+  </p>
+  <p>
+    To view published recipes please <a href="{% url 'home' %}">click here</a>.
+  </p>
 </div>
 {% elif recipe.status == 0 and request.user == recipe.author or recipe.status == 1 and recipe.approved == True %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            {% if commented %}
-            <div class="alert alert-dismissible fade show" id="alert-comment" role="alert">
-                <p>Your comment has been successfully posted</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endif %}
-        </div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      {% if commented %}
+      <div
+        class="alert alert-dismissible fade show"
+        id="alert-comment"
+        role="alert"
+      >
+        <p>Your comment has been successfully posted</p>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endif %}
     </div>
+  </div>
 </div>
 
 <div class="container mb-4">
   <div class="row">
     <div class="col-md-6">
       <div class="row">
-        <h1>{{ recipe.title }} {% if recipe.status == 0 %}(Draft){% endif %}</h1>
+        <h1>
+          {{ recipe.title }} {% if recipe.status == 0 %}(Draft){% endif %}
+        </h1>
       </div>
       <div class="row">
         <p>{{ recipe.author }} | {{ recipe.created_on }}</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+            <h2 class="nowrap big-star">
+                <span class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"></span>
+                <span class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"></span>
+                <span class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"></span>
+                <span class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"></span>
+                <span class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"></span>
+            </h2>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-3">
@@ -61,7 +94,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <div class="card-body">
+      <div id="summary" class="card-body">
         <h3 class="card-text">{{ recipe.summary | safe }}</h3>
       </div>
     </div>
@@ -70,10 +103,10 @@
     <div class="col-md-6">
       <div class="row">
         <h4>Ingredients:</h4>
-        <div class="row">
+        <div class="row list-parent">
           <ul>
             {% for ingredient in recipe.ingredients_list %}
-            <li>
+            <li class="ingredient">
               <p>{{ ingredient }}</p>
             </li>
             {% endfor %}
@@ -84,7 +117,7 @@
     <div class="col-md-6">
       <div class="row">
         <h4>Instructions:</h4>
-        <div class="row">{{ recipe.instructions | safe }}</div>
+        <div class="row list-parent">{{ recipe.instructions | safe }}</div>
       </div>
     </div>
   </div>
@@ -111,37 +144,54 @@
     <div class="col-md-4">
       <div class="row">
         {% if user.is_authenticated %}
+        <h4>Leave a review:</h4>
         <ul class="btn btn-light list-inline rating-list">
-            <li onclick="rate(5, {{ recipe.id }})">
-                <i class="fa fa-star {% if recipe.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i>
-            </li>
-            <li onclick="rate(4, {{ recipe.id }})">
-                <i class="fa fa-star {% if recipe.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i>
-            </li>
-            <li onclick="rate(3, {{ recipe.id }})">
-                <i class="fa fa-star {% if recipe.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i>
-            </li>
-            <li onclick="rate(2, {{ recipe.id }})">
-                <i class="fa fa-star {% if recipe.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i>
-            </li>
-            <li onclick="rate(1, {{ recipe.id }})">
-                <i class="fa fa-star {% if recipe.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i>
-            </li>
+          <li onclick="rate(5, {{ recipe.id }})">
+            <i
+              class="fa fa-star {% if recipe.user_rating > 4 %} checked {% endif %}"
+              title="Rate 5"
+            ></i>
+          </li>
+          <li onclick="rate(4, {{ recipe.id }})">
+            <i
+              class="fa fa-star {% if recipe.user_rating > 3 %} checked {% endif %}"
+              title="Rate 4"
+            ></i>
+          </li>
+          <li onclick="rate(3, {{ recipe.id }})">
+            <i
+              class="fa fa-star {% if recipe.user_rating > 2 %} checked {% endif %}"
+              title="Rate 3"
+            ></i>
+          </li>
+          <li onclick="rate(2, {{ recipe.id }})">
+            <i
+              class="fa fa-star {% if recipe.user_rating > 1 %} checked {% endif %}"
+              title="Rate 2"
+            ></i>
+          </li>
+          <li onclick="rate(1, {{ recipe.id }})">
+            <i
+              class="fa fa-star {% if recipe.user_rating > 0 %} checked {% endif %}"
+              title="Rate 1"
+            ></i>
+          </li>
         </ul>
         {% endif %}
       </div>
-      {{ recipe.recipe_category }}
       <div class="row">
         {% if commented %}
         <div class="alert alert-success" role="alert">
-            Your comment is awaiting approval
+          Your comment is awaiting approval
         </div>
         {% else %}
         <h4>Leave a comment:</h4>
         <p>Posting as: {{ user.username }}</p>
         <form method="post" style="margin-top: 1.3em">
-            {{ comment_form | crispy }} {% csrf_token %}
-            <button type="submit" name="comment_form" class="btn btn-lg">Submit</button>
+          {{ comment_form | crispy }} {% csrf_token %}
+          <button type="submit" name="comment_form" class="btn btn-lg">
+            Submit
+          </button>
         </form>
         {% endif %}
       </div>
@@ -166,21 +216,21 @@
 </div>
 {% endif %}
 <script>
-    const rate = (rating, post_id) => {
-        fetch(`/rate/${post_id}/${rating}/`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(rest => {
-            window.location.reload();
-        });
-    }
-    setTimeout(function () {
-        let messages = document.getElementById("alert-comment");
-        let alert = new bootstrap.Alert(messages);
-        alert.close();
-    }, 3000);
+  const rate = (rating, post_id) => {
+    fetch(`/rate/${post_id}/${rating}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((rest) => {
+      window.location.reload();
+    });
+  };
+  setTimeout(function () {
+    let messages = document.getElementById("alert-comment");
+    let alert = new bootstrap.Alert(messages);
+    alert.close();
+  }, 3000);
 </script>
 
 {% endblock %}

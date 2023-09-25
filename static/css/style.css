@@ -1,5 +1,7 @@
 /* Star Rating */
-
+.rating-list {
+    margin-left: 1rem;
+}
 .rating-list li {
     float: right;
     color: #ddd;
@@ -42,7 +44,7 @@ span.fa-star {
 }
 
 .footer {
-    position:fixed;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }
@@ -59,4 +61,24 @@ span.fa-star {
 
 .recipe-link:hover {
     text-decoration: underline;
+}
+
+
+/* Recipe Page */
+
+.big-star {
+    letter-spacing: 2rem;
+}
+
+#summary {
+    padding-left: 0;
+    margin-bottom: 2rem;
+}
+
+.list-parent > ul {
+    padding-left: 4rem;
+}
+
+.list-parent > ol {
+    padding-left: 4rem;
 }
