@@ -3,6 +3,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-10 mt-2 offset-1">
+      <div class="row mb-4">
+        <h1 class="text-center">Welcome to Time to Dine</h1>
+        <h2 class="text-center">Below are some of the many recipes created by people just like you!</h2>
+      </div>
       <div class="row">
         {% for recipe in recipe_list %}
         <div class="col-md-6">
@@ -96,6 +100,11 @@
     </ul>
   </nav>
   {% endif %}
+  <div class="col-10 mt-4 offset-1">
+    <div class="row">
+        <h5 class="text-center">Don't forget that you can submit your own recipes to be enjoyed by the public</h4>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

@@ -11,10 +11,34 @@ class Recipe(models.Model):
     BEGINNER = "Beginner"
     INTERMEDIATE = "Intermediate"
     EXPERT = "Expert"
+    STARTERS = "Starters"
+    CAKES = "Cakes"
+    DESSERTS = "Desserts"
+    BREAD = "Bread"
+    VEGETARIAN = "Vegetarian"
+    BEVERAGES = "Beverages"
+    PASTA = "Pasta"
+    OVEN_MEALS = "Oven Meals"
+    EASTERN_FOOD = "Eastern Food"
+    QUICK_MEALS = "Quick Meals"
+    OTHER = "Other"
     DIFFICULTY_CHOICES = [
         (BEGINNER, "Beginner"),
         (INTERMEDIATE, "Intermediate"),
         (EXPERT, "Expert")
+    ]
+    RECIPE_CATEGORIES = [
+        (STARTERS, "Starters"),
+        (BREAD, "Bread"),
+        (VEGETARIAN, "Vegetarian"),
+        (PASTA, "Pasta"),
+        (OVEN_MEALS, "Oven Meals"),
+        (EASTERN_FOOD, "Eastern Food"),
+        (QUICK_MEALS, "Quick Meals"),
+        (BEVERAGES, "Beverages"),
+        (DESSERTS, "Desserts"),
+        (CAKES, "Cakes"),
+        (OTHER, "Other")
     ]
     title = models.CharField(max_length=200, unique=False)
     slug = models.SlugField(max_length=200, unique=True)
@@ -26,6 +50,9 @@ class Recipe(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     time_to_prepare = models.PositiveIntegerField()
+    recipe_category = models.CharField(
+        max_length=20, choices=RECIPE_CATEGORIES, default='QUICK_MEALS'
+    )
     difficulty = models.CharField(
         max_length=12, choices=DIFFICULTY_CHOICES, default=BEGINNER)
     ingredients = models.TextField()
@@ -67,4 +94,5 @@ class Rating(models.Model):
     rating = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.recipe.header}: {self.rating}"
+        return f"{self.recipe.title}: {self.rating}"
+

@@ -13,7 +13,7 @@ class CommentForm(forms.ModelForm):
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ('title', 'summary', 'featured_image', 'time_to_prepare',
+        fields = ('title', 'summary', 'recipe_category', 'featured_image', 'time_to_prepare',
                   'difficulty', 'ingredients', 'instructions',)
         widgets = {
             'instructions': SummernoteWidget()

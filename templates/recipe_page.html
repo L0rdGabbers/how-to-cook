@@ -4,8 +4,12 @@
     <p>This recipe has not been approved by an admin, and can only be viewed by the author.</p>
     <p>To view recipes approved by our admins, please <a href="{% url 'home' %}">click here</a>.</p>
 </div>
-{% else %}
-
+{% elif recipe.status == 0 and request.user != recipe.author %}
+<div class="alert alert-info">
+    <p>The author has not published this page yet, meaning it can only be viewed by them.</p>
+    <p>To view published recipes please <a href="{% url 'home' %}">click here</a>.</p>
+</div>
+{% elif recipe.status == 0 and request.user == recipe.author or recipe.status == 1 and recipe.approved == True %}
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -23,7 +27,7 @@
   <div class="row">
     <div class="col-md-6">
       <div class="row">
-        <h1>{{ recipe.title }}</h1>
+        <h1>{{ recipe.title }} {% if recipe.status == 0 %}(Draft){% endif %}</h1>
       </div>
       <div class="row">
         <p>{{ recipe.author }} | {{ recipe.created_on }}</p>
@@ -126,6 +130,7 @@
         </ul>
         {% endif %}
       </div>
+      {{ recipe.recipe_category }}
       <div class="row">
         {% if commented %}
         <div class="alert alert-success" role="alert">

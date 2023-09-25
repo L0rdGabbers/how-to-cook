@@ -20,7 +20,7 @@ class RecipeList(generic.ListView):
 class RecipePage(View):
 
     def get(self, request, slug, *args, **kwargs):
-        queryset = Recipe.objects.filter(status=1)
+        queryset = Recipe.objects.all()
         recipe = get_object_or_404(queryset, slug=slug)
         comments = recipe.comments.filter(approved=True).order_by('created_on')
         if request.user.is_authenticated:
@@ -137,6 +137,19 @@ class DeleteRecipePage(generic.DeleteView):
         super(DeleteRecipePage, self).form_valid(form)
         return redirect('my_recipes')
 
+
+class CategoryPage(generic.ListView):
+
+    def get(self, request, recipe_category, *args, **kwargs):
+        query = recipe_category.replace("-", " ").title()
+        queryset = Recipe.objects.filter(status=1, approved=True, recipe_category=query)
+        return render(
+            request,
+            "index.html",
+            {
+                "recipe_list": queryset,
+            }
+        )
 
 def rate(request: HttpRequest, post_id: int, rating: int) -> HttpResponse:
     recipe = Recipe.objects.get(id=post_id)

@@ -29,10 +29,17 @@
 
     <nav class="navbar navbar-dark navbar-expand-md bg-success mb-4">
       <a class="navbar-brand" href="{% url 'home' %}">Time to Dine</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#myNavbar"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
-    </button>
+      </button>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="navbar-nav mr-auto mb-lg-0">
           <li class="nav-item">
@@ -42,6 +49,31 @@
               href="{% url 'home' %}"
               >Home</a
             >
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle {% if '/category/' in request.path %} active {% endif %}"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Categories
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='starters' %}">Starters</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='bread' %}">Bread</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='vegetarian' %}">Vegetarian</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Pasta</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Oven Meals</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Eastern Food</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='quick-meals' %}">Quick Meals</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Beverages</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Desserts</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Cakes</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Other</a></li>
+              </form>
+            </ul>
           </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
@@ -118,7 +150,7 @@
     <footer class="footer py-1 bg-dark">
       <ul class="nav">
         <li class="px-4"><p class="text-white">&copy; Gabriel Marriage</p></li>
-        <li class="px-4"><p class="text-white">+44 7307 166575</p></li>
+        <li class="px-4"><p class="text-white">+44 7123 456789</p></li>
         <li class="px-4"><p class="text-white">gabrielmarriage@me.com</p></li>
       </ul>
     </footer>
