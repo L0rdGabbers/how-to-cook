@@ -66,7 +66,7 @@ class Recipe(models.Model):
         return Rating.objects.filter(recipe=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
     def __str__(self):
-        return f"{self.title}: {self.average_star_rating()}"
+        return f"{self.title}"
 
     def ingredients_list(self):
         return self.ingredients.split(",")
@@ -94,5 +94,4 @@ class Rating(models.Model):
     rating = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.recipe.title}: {self.rating}"
-
+        return f"{self.recipe}: {self.rating} by {self.user}"

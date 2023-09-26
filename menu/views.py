@@ -156,4 +156,4 @@ def rate(request: HttpRequest, post_id: int, rating: int) -> HttpResponse:
     recipe = Recipe.objects.get(id=post_id)
     Rating.objects.filter(recipe=recipe, user=request.user).delete()
     recipe.rating_set.create(user=request.user, rating=rating)
-    return index(request)
+    return request
