@@ -14,7 +14,7 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = ('title', 'summary', 'recipe_category', 'featured_image', 'time_to_prepare',
-                  'difficulty', 'ingredients', 'instructions',)
+                  'difficulty', 'portions', 'ingredients', 'instructions',)
         widgets = {
             'instructions': SummernoteWidget()
         }

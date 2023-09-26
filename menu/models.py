@@ -55,6 +55,7 @@ class Recipe(models.Model):
     )
     difficulty = models.CharField(
         max_length=12, choices=DIFFICULTY_CHOICES, default=BEGINNER)
+    portions = models.PositiveIntegerField(default=1)
     ingredients = models.TextField()
     instructions = models.TextField()
     approved = models.BooleanField(default=False)

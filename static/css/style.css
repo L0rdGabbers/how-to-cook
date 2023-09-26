@@ -51,6 +51,27 @@ span.fa-star {
 
 /* Main page */
 
+#welcome-col {
+    margin-top: -4rem;
+    height: 30rem;
+    background-image: url('/static/images/background-img.jpg');
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    }
+
+.welcome-row {
+    bottom: -14rem;
+    position: relative;
+}
+
+.welcome-text {
+    color: #ffc;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
+}
+
 .card-img-top {
     max-height: 7.8rem;
 }

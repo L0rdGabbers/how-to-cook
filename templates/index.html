@@ -2,18 +2,23 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-10 mt-2 offset-1">
-      <div class="row mb-4">
-        {% if recipe_list  %}
-        {% if request.path == '/' %}
-        <h1 class="text-center">Welcome to Time to Dine</h1>
-        <h2 class="text-center">Below are some of the many recipes created by people just like you!</h2>
-        {% elif '/category/' in request.path %}
-        <h1 class="text-center">{{ recipe_category }}</h1>
-        {% endif %}
-        {% else %}
-        <h1 class="text-center">There are no recipes {% if '/category/' in request.path %} of this category {% endif %} available.</h1>
-        {% endif %}
+    <div id="welcome-col" class="col-12 mt-1">
+        <div class="row welcome-row">
+            {% if recipe_list %}
+            {% if request.path == '/' %}
+            <h1 class="text-center welcome-text">Welcome to Time to Dine</h1>
+            <h2 class="text-center welcome-text">Below are some of the many recipes created by people just like you!</h2>
+            {% elif '/category/' in request.path %}
+            <h1 class="text-center welcome-text">{{ recipe_category }}</h1>
+            {% endif %}
+            {% else %}
+            <h1 class="text-center welcome-text">There are no recipes
+                {% if '/category/' in request.path %} in the {{ recipe_category }} category {% endif %}
+                available.</h1>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-10 mt-2 offset-1 bg-white">
       <div class="row">
         {% for recipe in recipe_list %}
         <div class="col-md-6">
@@ -24,7 +29,7 @@
                   <a class="recipe-link text-success" href="{% url 'recipe_page' recipe.slug %}">
                     <h2 class="card-title">{{ recipe.title }}</h2>
                   </a>
-                  <h3 class="card-text">by {{ recipe.author }}</h3>
+                  <h3 class="card-text pb-2">by {{ recipe.author }}</h3>
                 </div>
                 <div class="col-md-4">
                   <div class="image-container">
