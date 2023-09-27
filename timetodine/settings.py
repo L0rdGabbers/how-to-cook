@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-l0rdgabbers-how-to-cook-3to8mge8b6.us2.codeanyapp.com', 'time-to-dine-0c73767650ec.herokuapp.com']
