@@ -1,32 +1,32 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="container-fluid">
+<div class="short-page-col container-fluid">
   <div class="row">
-  </div>
-  <div class="row">
-    <div class="col-10 offset-1">
+    <div class="col-md-10 mx-4">
       <div class="row">
         {% for recipe in recipes %}
         <div class="col-md-4">
           <div class="card">
             <div class="card-body">
-              {% if recipe.status is 1 %}
-              <a class="recipe-link text-success" href="{% url 'recipe_page' recipe.slug %}">
-                <h2 class="card-title">{{ recipe.title }}</h2>
-              </a>
-              {% else %}
-              <a class="recipe-link text-warning" href="{% url 'recipe_page' recipe.slug %}">
-                <h2 class="card-title">{{ recipe.title }}</h2>
-              </a>
-              {% endif %}
-              <div class="col-12">
+              <div class="row">
+                {% if recipe.status is 1 %}
+                <a class="recipe-link text-success" href="{% url 'recipe_page' recipe.slug %}">
+                  <h2 class="card-title">{{ recipe.title }}</h2>
+                </a>
+                {% else %}
+                <a class="recipe-link text-warning" href="{% url 'recipe_page' recipe.slug %}">
+                  <h2 class="card-title">{{ recipe.title }}</h2>
+                </a>
+                {% endif %}
+              </div>
+              <div class="col-md-12">
                 <div class="row">
                     {% if recipe.status is 0 %}
-                    <div class="col-4 m-auto">
+                    <div class="col-4 m-auto d-flex align-items-center justify-content-center">
                       <a class="btn btn-info" href="{% url 'submit_recipe' recipe.slug %}">Submit Recipe</a>
                     </div>
                     {% else %}
-                    <div class="col-4 m-auto">
+                    <div class="col-4 m-auto d-flex align-items-center justify-content-center">
                       {% if recipe.approved is False %}
                       <div class="btn bg-white border-warning" style="pointer-events: none;">
                         <p class="card-text">Pending</p>
@@ -38,10 +38,10 @@
                       {% endif %}
                     </div>
                     {% endif %}
-                    <div class="col-4 m-auto">
+                    <div class="col-4 m-auto d-flex align-items-center justify-content-center">
                         <a class="btn btn-warning" href="{% url 'update_recipe' recipe.slug %}">Edit</a>
                     </div>
-                    <div class="col-4 m-auto">
+                    <div class="col-4 m-auto d-flex align-items-center justify-content-center">
                         <a class="btn btn-danger" href="{% url 'delete_recipe' recipe.slug %}">Delete</a>
                     </div>
                 </div>

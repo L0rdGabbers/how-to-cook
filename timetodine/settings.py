@@ -174,3 +174,9 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '926514523333286',
     'API_SECRET': os.environ.get("API_SECRET")
 }
+
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'width': '100%',
+    },
+}

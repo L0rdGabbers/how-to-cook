@@ -1,20 +1,26 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="container-fluid">
+<div class="container-fluid short-page-col">
   <div class="row">
     <div id="welcome-col" class="col-12 mt-1">
         <div class="row welcome-row">
             {% if recipe_list %}
             {% if request.path == '/' %}
-            <h1 class="text-center welcome-text">Welcome to Time to Dine</h1>
-            <h2 class="text-center welcome-text">Below are some of the many recipes created by people just like you!</h2>
+            <h2 class="text-center welcome-text">Welcome to</h2>
+            <h1 class="text-center welcome-text">Time to Dine</h1>
+            {% if user.is_authenticated %}
+            <h2 class="text-center welcome-text">The fastest way to find or share all kinds of dinner recipes!</h2>
+            {% else %}
+            <h2 class="text-center welcome-text">Click <a class="recipe-link text-bold text-white" href="{% url 'account_signup' %}">here to register</a></h2>
+            <h3 class="text-center welcome-text">Or click <a class="recipe-link text-bold text-white" href="{% url 'account_login' %}">here to login</a></h3>
+            {% endif %}
             {% elif '/category/' in request.path %}
             <h1 class="text-center welcome-text">{{ recipe_category }}</h1>
             {% endif %}
             {% else %}
             <h1 class="text-center welcome-text">There are no recipes
                 {% if '/category/' in request.path %} in the {{ recipe_category }} category {% endif %}
-                available.</h1>
+                available</h1>
             {% endif %}
         </div>
     </div>
@@ -34,19 +40,19 @@
                 <div class="col-md-4">
                   <div class="image-container">
                     {% if "placeholder" in recipe.featured_image.url %}
-                    <img
+                    <a href="{% url 'recipe_page' recipe.slug %}"><img
                       id="main-page-image"
                       class="card-img-top"
                       src="https://images.pexels.com/photos/269257/pexels-photo-269257.jpeg"
                       alt="image of {{ recipe.title }}"
-                    />
+                    /></a>
                     {% else %}
-                    <img
+                    <a href="{% url 'recipe_page' recipe.slug %}"><img
                       id="main-page-image"
                       class="card-img-top"
                       src=" {{ recipe.featured_image.url }}"
                       alt="image of {{ recipe.title }}"
-                    />
+                    /></a>
                     {% endif %}
                   </div>
                 </div>
@@ -54,33 +60,27 @@
               <div class="row">
                 <div class="col-12 mt-2">
                   <div class="row">
-                    <div class="col-4">
+                    <div class="col-6">
                       <p class="card-text mb-0">Difficulty: {{ recipe.difficulty }}</p>
                     </div>
-                    <div class="col-4">
-                      <p class="card-text">
-                        {{ recipe.time_to_prepare }} minutes
-                      </p>
+                    <div class="col-md-6">
+                        <p class="nowrap">
+                            <span class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"></span>
+                        </p>
                     </div>
-                    <div class="col-4">
-                      <p class="card-text mb-0">Rating:</p>
-                      <p class="nowrap">
-                        <span
-                          class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"
-                        ></span>
-                        <span
-                          class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"
-                        ></span>
-                        <span
-                          class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"
-                        ></span>
-                        <span
-                          class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"
-                        ></span>
-                        <span
-                          class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"
-                        ></span>
-                      </p>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="card-text mb-0">Portions: {{ recipe.portions }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="card-text">
+                            <span><i class="fa-solid fa-stopwatch"></i></span> {{ recipe.time_to_prepare }} minutes
+                        </p>
                     </div>
                   </div>
                 </div>
@@ -114,7 +114,7 @@
   {% endif %}
   <div class="col-10 mt-4 offset-1">
     <div class="row">
-        <h5 class="text-center">Don't forget that you can <a href="{% url 'add_recipe' %}">create your own recipes</a> to be enjoyed by the public</h4>
+        <h5 class="text-center">Don't forget that you can <a class="recipe-link text-success" href="{% url 'add_recipe' %}">add your own recipes</a> to be enjoyed by the public</h4>
     </div>
   </div>
 </div>

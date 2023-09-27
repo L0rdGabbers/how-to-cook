@@ -36,17 +36,18 @@ span.fa-star {
 
 /* Footer */
 
-#footer-space {
+footer {
     position: relative;
     bottom: 0;
+    left: 0;
+    margin-top: 2rem;
+    padding-top: 0.5rem;
+    height: 2.99rem;
     width: 100%;
-    height: 4rem;
 }
 
-.footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+.short-page-col {
+    min-height: 51rem;
 }
 
 /* Main page */
@@ -63,13 +64,17 @@ span.fa-star {
     }
 
 .welcome-row {
-    bottom: -14rem;
+    bottom: -10rem;
     position: relative;
 }
 
 .welcome-text {
     color: #ffc;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
+}
+
+h1.welcome-text {
+    font-size: 4rem;
 }
 
 .card-img-top {
@@ -102,4 +107,14 @@ span.fa-star {
 
 .list-parent > ol {
     padding-left: 4rem;
+}
+
+/* Forms */
+
+.form-group {
+    padding-bottom: 1rem;
+}
+
+.note-editor.note-frame.panel.panel-default {
+    width: 20rem;
 }

@@ -40,7 +40,7 @@ class Recipe(models.Model):
         (CAKES, "Cakes"),
         (OTHER, "Other")
     ]
-    title = models.CharField(max_length=200, unique=False)
+    title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="recipe_posts")
@@ -55,7 +55,7 @@ class Recipe(models.Model):
     )
     difficulty = models.CharField(
         max_length=12, choices=DIFFICULTY_CHOICES, default=BEGINNER)
-    portions = models.PositiveIntegerField(default=1)
+    portions = models.PositiveIntegerField(default=4)
     ingredients = models.TextField()
     instructions = models.TextField()
     approved = models.BooleanField(default=False)
