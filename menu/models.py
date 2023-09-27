@@ -4,10 +4,15 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from statistics import mean
 
+# Recipe's publication status
 STATUS = ((0, "Draft"), (1, "Published"))
 
 
 class Recipe(models.Model):
+    """
+    Database format for Recipes, as well as predetermined values for difficulty
+    and for recipe category
+    """
     BEGINNER = "Beginner"
     INTERMEDIATE = "Intermediate"
     EXPERT = "Expert"
@@ -64,16 +69,25 @@ class Recipe(models.Model):
         ordering = ['-created_on']
 
     def average_star_rating(self) -> float:
+        """
+        Calculates a recipe's average rating
+        """
         return Rating.objects.filter(recipe=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
     def __str__(self):
         return f"{self.title}"
 
     def ingredients_list(self):
+        """
+        Seperates the string of ingredients into an array entered by a user
+        """
         return self.ingredients.split(",")
 
 
 class Comment(models.Model):
+    """
+    Database format for comments, which is linked to the recipe model
+    """
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=80)
@@ -90,6 +104,9 @@ class Comment(models.Model):
 
 
 class Rating(models.Model):
+    """
+    Database format for star ratings, which is linked to the recipe model
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)

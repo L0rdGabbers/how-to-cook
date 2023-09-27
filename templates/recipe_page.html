@@ -1,30 +1,49 @@
 {% extends "base.html" %} {% block content %} {% load crispy_forms_tags %} 
 {% if recipe.approved == False and request.user != recipe.author %}
-<div class="alert alert-info">
-  <p>
-    This recipe has not been approved by an admin, and can only be viewed by the
-    author.
-  </p>
-  <p>
-    To view recipes approved by our admins, please
-    <a href="{% url 'home' %}">click here</a>.
-  </p>
+<!-- The only user that can view unapproved recipes is the author, anyone else
+will see this alert -->
+<div class="container short-page-col">
+  <div class="alert alert-info">
+    <div class="row">
+      <div class="card-body text-center">
+        <h1>This recipe has not been approved by an admin</h1>
+        <h2>
+          To view recipes that have been approved click
+          <a href="{% url 'home' %}">here.</a>
+        </h2>
+      </div>
+    </div>
+  </div>
 </div>
 {% elif recipe.status == 0 and request.user != recipe.author %}
-<div class="alert alert-info">
-  <p>
-    The author has not published this page yet, meaning it can only be viewed by
-    them.
-  </p>
-  <p>
-    To view published recipes please <a href="{% url 'home' %}">click here</a>.
-  </p>
+<!-- Additionally, recipes may be approved by admins, but have not yet been 
+submitted by the author and will not be viewable by anyone but the author -->
+<div class="container short-page-col">
+  <div class="alert alert-info">
+    <div class="row">
+      <div class="card-body text-center">
+        <h1>
+          The author has not published this recipe yet, meaning it can only be
+          read by them.
+        </h1>
+        <h2>
+          To view recipes that have been published click
+          <a href="{% url 'home' %}">here.</a>
+        </h2>
+      </div>
+    </div>
+  </div>
 </div>
-{% elif recipe.status == 0 and request.user == recipe.author or recipe.status == 1 and recipe.approved == True %}
+{% elif request.user == recipe.author or recipe.status == 1 and recipe.approved == True %}
+<!-- The recipe will always display if the user is the recipe author, and will
+  only be displayed to other users if BOTH the recipe has been published
+  by the author and approved by an admin  -->
 <div class="container">
   <div class="row">
     <div class="col-md-8 offset-md-2">
       {% if commented %}
+      <!-- An alert will appear here to let the user know
+        that their comment has been posted -->
       <div
         class="alert alert-dismissible fade show"
         id="alert-comment"
@@ -43,6 +62,7 @@
   </div>
 </div>
 
+<!-- The following is the header for a selected recipe -->
 <div class="container mb-4">
   <div class="row">
     <div class="col-md-6">
@@ -56,13 +76,23 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-            <h2 class="nowrap big-star">
-                <span class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"></span>
-                <span class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"></span>
-                <span class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"></span>
-                <span class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"></span>
-                <span class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"></span>
-            </h2>
+          <h2 class="nowrap big-star">
+            <span
+              class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"
+            ></span>
+            <span
+              class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"
+            ></span>
+            <span
+              class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"
+            ></span>
+            <span
+              class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"
+            ></span>
+            <span
+              class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"
+            ></span>
+          </h2>
         </div>
       </div>
       <div class="row">
@@ -77,7 +107,7 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="image-container">
+      <div id="recipe-image" class="image-container">
         {% if "placeholder" in recipe.featured_image.url %}
         <img
           src="https://images.pexels.com/photos/269257/pexels-photo-269257.jpeg"
@@ -91,6 +121,8 @@
   </div>
 </div>
 
+<!-- The following code displays the recipe's summary, details, and user 
+    interactable comment box and star rating box -->
 <div class="container">
   <div class="row">
     <div class="col">
@@ -128,6 +160,7 @@
   </div>
   <div class="row">
     {% if user.is_authenticated %}
+    <!-- Comment form and Rating, which only appear if user is logged in -->
     <div class="col-md-8">
       <h4>Comments:</h4>
       <div class="card-body">
@@ -143,7 +176,6 @@
     </div>
     <div class="col-md-4">
       <div class="row">
-        {% if user.is_authenticated %}
         <h4>Leave a review:</h4>
         <ul class="btn btn-light list-inline rating-list">
           <li onclick="rate(5, {{ recipe.id }})">
@@ -181,10 +213,13 @@
       </div>
       <div class="row">
         {% if commented %}
+        <!-- This alert informs the user that
+            their comment is awaiting approval -->
         <div class="alert alert-success" role="alert">
           Your comment is awaiting approval
         </div>
         {% else %}
+        <!-- Comment Form -->
         <h4>Leave a comment:</h4>
         <p>Posting as: {{ user.username }}</p>
         <form method="post" style="margin-top: 1.3em">
@@ -196,8 +231,8 @@
         {% endif %}
       </div>
     </div>
-
     {% else %}
+    <!-- Comments can still be viewed by users, even if they are annonymous -->
     <div class="col-md-12">
       <h4>Comments:</h4>
       <div class="card-body">
@@ -214,9 +249,12 @@
     {% endif %}
   </div>
 </div>
-{% endif %}
 <script>
   const rate = (rating, post_id) => {
+    /* The rate function rate will post the user's 
+      5 star rating of this recipe to the database
+      and then reload the page at the point they made the submission
+    */
     fetch(`/rate/${post_id}/${rating}/`, {
       method: "GET",
       headers: {
@@ -227,6 +265,7 @@
     });
   };
   setTimeout(function () {
+    // This function will make alert messages dissapear after 3 seconds
     let messages = document.getElementById("alert-comment");
     let alert = new bootstrap.Alert(messages);
     alert.close();

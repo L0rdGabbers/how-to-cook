@@ -1,12 +1,49 @@
 {% extends "base.html" %} {% block content %}
 
+<!-- Should the user be authenticated and have a list of recipes saved into
+the database, they will all be displayed here. Alternative links are provided
+should the user not be authenticated or not have any recipes -->
 <div class="short-page-col container-fluid">
+  <div class="row"></div>
   <div class="row">
-    <div class="col-md-10 mx-4">
+    <div id="welcome-col" class="col-12 mt-1">
+        <div class="row welcome-row">
+            <h1 class="text-center welcome-text">My Recipes</h1>
+            {% if recipes %}
+            <h2 class="text-center welcome-text">
+                Where you can manage all of your recipes
+            </h2>
+            {% elif recipes != True and user.is_authenticated %}
+            <h2 class="text-center welcome-text">
+                <a class="recipe-link text-bold text-white" href="{% url 'add_recipe' %}">To get started click here to add your own recipes</a>
+            <h2>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-10 offset-md-1">
       <div class="row">
+        {% if user.is_authenticated == False %}
+        <div class="container">
+            <div class="row">
+                <div class="card-body text-center">
+                    <h1>You are not currently signed in.</h1>
+                    <h2>
+                        To sign into your account,
+                        <a href="{% url 'account_login' %}">click here</a>
+                    </h2>
+                    <h2>
+                        Or to register for a new account,
+                        <a href="{% url 'account_signup' %}">click here</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- These recipe cards provide links to the user's recipes, as well as
+        links to the submit, update and delete pages -->
         {% for recipe in recipes %}
-        <div class="col-md-4">
-          <div class="card">
+        <div class="col-md-4 mt-2 mb-5">
+          <div class="card recipe-card">
             <div class="card-body">
               <div class="row">
                 {% if recipe.status is 1 %}
@@ -49,11 +86,12 @@
             </div>
           </div>
         </div>
-        {% if forloop.counter|divisibleby:3 %}
+        {% if forloop.counter|divisibleby:9 %}
       </div>
       <div class="row">{% endif %} {% endfor %}</div>
     </div>
   </div>
+  <!-- The following provides a page-link to view the next page of recipes -->
   {% if is_paginated %}
   <nav aria-label="Page Navigation">
     <ul class="pagination justify-content-center">
@@ -74,5 +112,6 @@
   </nav>
   {% endif %}
 </div>
+{% endif %}
 
 {% endblock %}

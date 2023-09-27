@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
+<!-- The main home page which will check the user's login status and offer them
+to register or sign in if unauthenticated -->
 <div class="container-fluid short-page-col">
   <div class="row">
     <div id="welcome-col" class="col-12 mt-1">
@@ -26,6 +28,10 @@
     </div>
     <div class="col-10 mt-2 offset-1 bg-white">
       <div class="row">
+        <!-- The following code displays the most recent 6 recipes that are both
+          published and authorised and are organised from newest to oldest. Star
+          rating, time to prepare, difficulty and portion size are all detailed
+          on the face of the card -->
         {% for recipe in recipe_list %}
         <div class="col-md-6">
           <div class="card mb-5 recipe-card">
@@ -94,6 +100,7 @@
     </div>
   </div>
   {% if is_paginated %}
+  <!-- The following provides a page-link to view the next page of recipes -->
   <nav aria-label="Page Navigation">
     <ul class="pagination justify-content-center">
       {% if page_obj.has_previous %}

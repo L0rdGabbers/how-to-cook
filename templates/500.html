@@ -1,3 +1,15 @@
 {% extends "base.html" %} {% block content %}
-500 Error: No page found
+
+<!-- Error 500 -->
+<div class="container short-page-col">
+    <div class="alert alert-info short-page-col">
+        <div class="row">
+            <div class="card-body text-center">
+                <h1>It seems that our servers have gone down (Error 500)</h1>
+                <h2>Click <a href="{% url 'home' %}">here</a> to try and return to
+                    the home page...</h2>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

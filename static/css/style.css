@@ -109,6 +109,11 @@ h1.welcome-text {
     padding-left: 4rem;
 }
 
+#recipe-image {
+    max-height: 30rem;
+    overflow: hidden;
+}
+
 /* Forms */
 
 .form-group {

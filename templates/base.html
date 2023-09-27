@@ -66,16 +66,18 @@
                 <li><a class="dropdown-item" href="{% url 'category' recipe_category='bread' %}">Bread</a></li>
                 <li><a class="dropdown-item" href="{% url 'category' recipe_category='vegetarian' %}">Vegetarian</a></li>
                 <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Pasta</a></li>
-                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Oven Meals</a></li>
-                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Eastern Food</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='oven-meals' %}">Oven Meals</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='eastern-food' %}">Eastern Food</a></li>
                 <li><a class="dropdown-item" href="{% url 'category' recipe_category='quick-meals' %}">Quick Meals</a></li>
-                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Beverages</a></li>
-                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Desserts</a></li>
-                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Cakes</a></li>
-                <li><a class="dropdown-item" href="{% url 'category' recipe_category='Pasta' %}">Other</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='beverages' %}">Beverages</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='desserts' %}">Desserts</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='cakes' %}">Cakes</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' recipe_category='other' %}">Other</a></li>
             </ul>
           </li>
           {% if user.is_authenticated %}
+          <!-- Links to pages that require user authentication will only appear
+            in navbar if the user is authenticated -->
           <li class="nav-item">
             <a
               class="nav-link {% if request.path == '/add-recipe/' %} active {% endif %}"
@@ -117,6 +119,7 @@
       </div>
     </nav>
 
+    <!-- Register, Sign in and Logout Messages -->
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-md-2">

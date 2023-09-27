@@ -1,3 +1,14 @@
 {% extends "base.html" %} {% block content %}
-404 Error: No page found
+
+<!-- Error 404 -->
+<div class="container short-page-col">
+  <div class="alert alert-info short-page-col">
+    <div class="row">
+      <div class="card-body text-center">
+        <h1>The requested page does not exist (Error 404)</h1>
+        <h2>Return to the home page <a href="{% url 'home' %}">here.</a></h2>
+      </div>
+    </div>   
+  </div>
+</div>
 {% endblock %}

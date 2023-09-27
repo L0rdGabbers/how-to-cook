@@ -1,6 +1,8 @@
 {% extends "base.html" %} {% block content %} {% load crispy_forms_tags %} 
 {% if request.user == recipe.author %}
-<div class="container">
+<!-- If the user is this recipe's author,
+    the submit recipe form will be displayed -->
+<div class="container short-page-col">
   <div class="row">
     <div class="col-md-8 mt-3 offset-md-2">
       <h1>Submit '{{ recipe.title }}'</h1>
@@ -18,7 +20,15 @@
   </div>
 </div>
 {% else %}
-<div class="alert alert-info">
-  You do not have access to submit this recipe.
+<!-- Should another user make their way to this page, this alert is displayed -->
+<div class="container short-page-col">
+  <div class="alert alert-info short-page-col">
+    <div class="row">
+        <div class="card-body text-center">
+            <h1>You do not have access to submit this recipe.</h1>
+            <h2>Return to the home page <a href="{% url 'home' %}">here.</a></h2>
+        </div>
+    </div>
+  </div>
 </div>
 {% endif %} {% endblock %}
