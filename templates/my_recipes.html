@@ -62,7 +62,7 @@ should the user not be authenticated or not have any recipes -->
                 <div class="row">
                   {% if recipe.status is 0 %}
                   <div class="col-4 m-auto d-flex align-items-center justify-content-center">
-                    <a class="btn btn-info" href="{% url 'submit_recipe' recipe.slug %}">Submit Recipe</a>
+                    <a class="btn btn-info" href="{% url 'submit_recipe' recipe.slug %}">Submit</a>
                   </div>
                   {% else %}
                   <div class="col-4 m-auto d-flex align-items-center justify-content-center">

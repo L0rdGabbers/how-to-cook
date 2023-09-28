@@ -76,7 +76,7 @@ submitted by the author and will not be viewable by anyone but the author -->
       </div>
       <div class="row">
         <div class="col-md-6">
-          <h2 class="nowrap big-star">
+          <h2 class="text-nowrap big-star">
             <span
               class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"
             ></span>
@@ -96,13 +96,13 @@ submitted by the author and will not be viewable by anyone but the author -->
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 mx-2">
           <i class="fa-solid fa-gauge"></i>
-          <p>{{ recipe.difficulty }}</p>
+          <p class="text-nowrap">{{ recipe.difficulty }}</p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 mx-2">
           <i class="fa-solid fa-stopwatch"></i>
-          <p>{{ recipe.time_to_prepare }} minutes</p>
+          <p class="text-nowrap">{{ recipe.time_to_prepare }} minutes</p>
         </div>
       </div>
     </div>
@@ -149,7 +149,7 @@ submitted by the author and will not be viewable by anyone but the author -->
     <div class="col-md-6">
       <div class="row">
         <h4>Instructions:</h4>
-        <div class="row list-parent">{{ recipe.instructions | safe }}</div>
+        <div id="instruction-list" class="row list-parent">{{ recipe.instructions | safe }}</div>
       </div>
     </div>
   </div>

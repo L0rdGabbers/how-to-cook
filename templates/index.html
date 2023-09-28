@@ -20,9 +20,13 @@ to register or sign in if unauthenticated -->
             <h1 class="text-center welcome-text">{{ recipe_category }}</h1>
             {% endif %}
             {% else %}
-            <h1 class="text-center welcome-text">There are no recipes
-                {% if '/category/' in request.path %} in the {{ recipe_category }} category {% endif %}
-                available</h1>
+            <h1 class="text-center welcome-text">
+            {% if '/category/' in request.path %} {{ recipe_category }}
+            </h1>
+            <h2 class="text-center welcome-text">
+                No recipes available
+            </h2>
+            {% endif %}
             {% endif %}
         </div>
     </div>
@@ -67,10 +71,10 @@ to register or sign in if unauthenticated -->
                 <div class="col-12 mt-2">
                   <div class="row">
                     <div class="col-6">
-                      <p class="card-text mb-0">Difficulty: {{ recipe.difficulty }}</p>
+                      <p id="difficulty" class="card-text mb-0">Difficulty: {{ recipe.difficulty }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p class="nowrap">
+                        <p class="text-nowrap">
                             <span class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"></span>
                             <span class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"></span>
                             <span class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"></span>
