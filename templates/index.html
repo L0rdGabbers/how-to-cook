@@ -4,7 +4,7 @@
 to register or sign in if unauthenticated -->
 <div class="container-fluid short-page-col">
   <div class="row">
-    <div id="welcome-col" class="col-12 mt-1">
+    <div id="welcome-col" class="col-12 mt-1" style="background-image: url('{% static 'images/background-img.jpg' %}');">
         <div class="row welcome-row">
             {% if recipe_list %}
             {% if request.path == '/' %}

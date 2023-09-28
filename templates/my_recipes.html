@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
+{% load static %}
 
 <!-- Should the user be authenticated and have a list of recipes saved into
 the database, they will all be displayed here. Alternative links are provided
@@ -6,7 +8,7 @@ should the user not be authenticated or not have any recipes -->
 <div class="short-page-col container-fluid">
   <div class="row"></div>
   <div class="row">
-    <div id="welcome-col" class="col-12 mt-1">
+    <div id="welcome-col" class="col-12 mt-1" style="background-image: url('{% static 'images/background-img.jpg' %}');">
         <div class="row welcome-row">
             <h1 class="text-center welcome-text">My Recipes</h1>
             {% if recipes %}
@@ -41,52 +43,52 @@ should the user not be authenticated or not have any recipes -->
         {% else %}
         <!-- These recipe cards provide links to the user's recipes, as well as
         links to the submit, update and delete pages -->
-        {% for recipe in recipes %}
-        <div class="col-md-4 mt-2 mb-5">
-          <div class="card recipe-card">
-            <div class="card-body">
-              <div class="row">
-                {% if recipe.status is 1 %}
-                <a class="recipe-link text-success" href="{% url 'recipe_page' recipe.slug %}">
-                  <h2 class="card-title">{{ recipe.title }}</h2>
-                </a>
-                {% else %}
-                <a class="recipe-link text-warning" href="{% url 'recipe_page' recipe.slug %}">
-                  <h2 class="card-title">{{ recipe.title }}</h2>
-                </a>
-                {% endif %}
-              </div>
+          {% for recipe in recipes %}
+          <div class="col-md-4 mt-2 mb-5">
+            <div class="card recipe-card">
+              <div class="card-body">
+                <div class="row">
+                  {% if recipe.status is 1 %}
+                  <a class="recipe-link text-success" href="{% url 'recipe_page' recipe.slug %}">
+                    <h2 class="card-title">{{ recipe.title }}</h2>
+                  </a>
+                  {% else %}
+                  <a class="recipe-link text-warning" href="{% url 'recipe_page' recipe.slug %}">
+                    <h2 class="card-title">{{ recipe.title }}</h2>
+                  </a>
+                  {% endif %}
+                </div>
               <div class="col-md-12">
                 <div class="row">
-                    {% if recipe.status is 0 %}
-                    <div class="col-4 m-auto d-flex align-items-center justify-content-center">
-                      <a class="btn btn-info" href="{% url 'submit_recipe' recipe.slug %}">Submit Recipe</a>
+                  {% if recipe.status is 0 %}
+                  <div class="col-4 m-auto d-flex align-items-center justify-content-center">
+                    <a class="btn btn-info" href="{% url 'submit_recipe' recipe.slug %}">Submit Recipe</a>
+                  </div>
+                  {% else %}
+                  <div class="col-4 m-auto d-flex align-items-center justify-content-center">
+                    {% if recipe.approved is False %}
+                    <div class="btn bg-white border-warning" style="pointer-events: none;">
+                      <p class="card-text">Pending</p>
                     </div>
                     {% else %}
-                    <div class="col-4 m-auto d-flex align-items-center justify-content-center">
-                      {% if recipe.approved is False %}
-                      <div class="btn bg-white border-warning" style="pointer-events: none;">
-                        <p class="card-text">Pending</p>
-                      </div>
-                      {% else %}
-                      <div class="btn bg-white border-success" style="pointer-events: none;">
-                        <p class="card-text">Approved</p>
-                      </div>
-                      {% endif %}
+                    <div class="btn bg-white border-success" style="pointer-events: none;">
+                      <p class="card-text">Approved</p>
                     </div>
                     {% endif %}
-                    <div class="col-4 m-auto d-flex align-items-center justify-content-center">
-                        <a class="btn btn-warning" href="{% url 'update_recipe' recipe.slug %}">Edit</a>
-                    </div>
-                    <div class="col-4 m-auto d-flex align-items-center justify-content-center">
-                        <a class="btn btn-danger" href="{% url 'delete_recipe' recipe.slug %}">Delete</a>
-                    </div>
+                  </div>
+                  {% endif %}
+                  <div class="col-4 m-auto d-flex align-items-center justify-content-center">
+                    <a class="btn btn-warning" href="{% url 'update_recipe' recipe.slug %}">Edit</a>
+                  </div>
+                  <div class="col-4 m-auto d-flex align-items-center justify-content-center">
+                    <a class="btn btn-danger" href="{% url 'delete_recipe' recipe.slug %}">Delete</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {% if forloop.counter|divisibleby:9 %}
+        {% if forloop.counter|divisibleby:3 %}
       </div>
       <div class="row">{% endif %} {% endfor %}</div>
     </div>

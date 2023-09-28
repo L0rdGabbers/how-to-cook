@@ -55,7 +55,6 @@ footer {
 #welcome-col {
     margin-top: -4rem;
     height: 30rem;
-    background-image: url('../images/background-img.jpg');
     min-height: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
