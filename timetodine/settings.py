@@ -169,12 +169,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'de4wvzuno',
-    'API_KEY': '926514523333286',
-    'API_SECRET': os.environ.get("API_SECRET")
-}
-
 SUMMERNOTE_CONFIG = {
     'summernote': {
         'width': '100%',
