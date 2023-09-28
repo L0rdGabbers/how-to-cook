@@ -1,39 +1,57 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# **Time to Dine**
+## **Site Overview**
+For anyone who constantly finds themselves wanting to try new meals to cook, or for people that have a burning desire to share their approach to the art of cooking: Time to Dine
 
-Welcome,
+Time to Dine is a community recipe sharing site. The site provides an opportunity to view a list of recipes, which a viewer can select to see a more detailed view, or they can submit their own recipe for others to view, comment and rate.
 
-This is the Code Institute student template for Codeanywhere. If you are using Gitpod then you need [this template](https://github.com/Code-Institute-Org/gitpod-full-template) instead.  We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+![Responsive screenshot](assets/images/responsive.jpg)
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **August 30th, 2023**
+[Deployed site](https://time-to-dine-0c73767650ec.herokuapp.com/)
 
-## Codeanywhere Reminders
+# **Table Of Contents**
+- [**Time to Dine**](#time-to-dine)
+  - [**Site Overview**](#site-overview)
+- [**Table Of Contents**](#table-of-contents)
+  - [*Planning Stage*](#planning-stage)
+    - [*Target Audience*](#target-audience)
+    - [**User Stories**](#user-stories)
+    - [**Site Aims**](#site-aims)
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere, in the terminal, type:
+## *Planning Stage*
+### *Target Audience*
 
-`python3 -m http.server`
+- People who are new to cooking and want to find recipes tailored for beginners
+- Experienced cooks who want to share their recipes online
+- People who want to cook something precise, such as bread, cake, pasta and want a list of choices that fall within these categories
+  
+### **User Stories**
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+- As a site user, I can view a paginated list of posts so that I can easily select a recipe that catches my interest.
+- As a site user, I can open a post so that I can see what ingredients and steps I need to take to prepare a recipe.
+- As a site user/admin, I can see a rating of 1 to 5 stars on each post so that I can see which recipes are the most popular.
+- As a site user, I can see the difficulty rating of a recipe on a post so that I can gauge whether or not I am skilled enough to prepare this recipe.
+- As a site user/admin, I can view the comments on a post so that I can see other people's opinions of a recipe.
+- As a site user, I can see the estimated time required to prepare a certain recipe so that I can determine whether I have enough time or plan my cooking schedule ahead.
+- As a site user, I can register for an account so that I can comment and review other people's recipes, as well as post my own ones.
+- As an admin, I can approve submitted recipes so that they can be viewed and enjoyed by the site users.
+- As a site user, I can leave a comment so that I can be a part of the conversation regarding a particular recipe.
+- As a site user, I can submit a review of 1-5 stars so that I can help other people decide whether they want to prepare this recipe themselves.
+- As a site admin, I can create, read, update, and delete posts so that I can manage the site's content.
+- As a site user, I can update and delete my own recipes so that I can correct or erase any mistakes I have made in my recipes.
+- As a site user/admin, I can create draft posts so that I can finish writing the recipe later.
+- As a site user, I can click on a link to a step-by-step guide so that I can follow the recipe instructions clearly.
+- As a site user, I can select a particular category of food so that I can see a list of recipes that match the category of food I want to cook.
+- As a user, I can see how many portions a recipe serves so that I can plan how much I need to prepare according to the number of people I will be cooking for.
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere with no-cache, you can use this alias for `python3 -m http.server`.
+The user stories made up a big part of the user design for the website and were carried out via agile methodology.
 
-`http_server`
+![User Stories](assets/images/user-stories.jpg)
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+* One user story, instructions, was reinterpreted to include the instructions on the recipe's main page as opposed to being on their own separate view.
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+### **Site Aims**
 
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+The Time to Dine site had two main goals:
 
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
-
----
-
-Happy coding!
+- 1: To provide an online hub wherein people can find a cooking recipe
+- 2: To provide a place for people to share their own recipes on the internet in a stylish and sleek format.
