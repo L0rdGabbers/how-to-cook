@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %} 
+{% extends "base.html" %} {% block content %} 
+{% load crispy_forms_tags %} {% load static %}
 {% if recipe.approved == False and request.user != recipe.author %}
 <!-- The only user that can view unapproved recipes is the author, anyone else
 will see this alert -->
@@ -45,7 +46,7 @@ submitted by the author and will not be viewable by anyone but the author -->
       <!-- An alert will appear here to let the user know
         that their comment has been posted -->
       <div
-        class="alert alert-dismissible fade show"
+        class="alert alert-dismissible alert-success fade show"
         id="alert-comment"
         role="alert"
       >
@@ -109,12 +110,9 @@ submitted by the author and will not be viewable by anyone but the author -->
     <div class="col-md-6">
       <div id="recipe-image" class="image-container">
         {% if "placeholder" in recipe.featured_image.url %}
-        <img
-          src="https://images.pexels.com/photos/269257/pexels-photo-269257.jpeg"
-          class="img-fluid"
-        />
+        <img src="{% static 'images/default.jpg' %}" class="img-fluid" alt="{{ recipe.title }}">
         {% else %}
-        <img src=" {{ recipe.featured_image.url }} " class="img-fluid" />
+        <img src=" {{ recipe.featured_image.url }} " class="img-fluid" alt="{{ recipe.title }}">
         {% endif %}
       </div>
     </div>
@@ -155,7 +153,7 @@ submitted by the author and will not be viewable by anyone but the author -->
   </div>
   <div class="row">
     <div class="col">
-      <hr />
+      <hr>
     </div>
   </div>
   <div class="row">
@@ -209,7 +207,6 @@ submitted by the author and will not be viewable by anyone but the author -->
             ></i>
           </li>
         </ul>
-        {% endif %}
       </div>
       <div class="row">
         {% if commented %}
@@ -231,7 +228,7 @@ submitted by the author and will not be viewable by anyone but the author -->
         {% endif %}
       </div>
     </div>
-    {% else %}
+    {% endif %}
     <!-- Comments can still be viewed by users, even if they are annonymous -->
     <div class="col-md-12">
       <h4>Comments:</h4>

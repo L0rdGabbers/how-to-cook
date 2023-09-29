@@ -51,18 +51,14 @@ to register or sign in if unauthenticated -->
                   <div class="image-container">
                     {% if "placeholder" in recipe.featured_image.url %}
                     <a href="{% url 'recipe_page' recipe.slug %}"><img
-                      id="main-page-image"
                       class="card-img-top"
-                      src="https://images.pexels.com/photos/269257/pexels-photo-269257.jpeg"
-                      alt="image of {{ recipe.title }}"
-                    /></a>
+                      src="{% static 'images/default.jpg' %}"
+                      alt="image of {{ recipe.title }}"></a>
                     {% else %}
                     <a href="{% url 'recipe_page' recipe.slug %}"><img
-                      id="main-page-image"
                       class="card-img-top"
                       src=" {{ recipe.featured_image.url }}"
-                      alt="image of {{ recipe.title }}"
-                    /></a>
+                      alt="image of {{ recipe.title }}"></a>
                     {% endif %}
                   </div>
                 </div>
@@ -71,7 +67,7 @@ to register or sign in if unauthenticated -->
                 <div class="col-12 mt-2">
                   <div class="row">
                     <div class="col-6">
-                      <p id="difficulty" class="card-text mb-0">Difficulty: {{ recipe.difficulty }}</p>
+                      <p class=" difficulty card-text mb-0">Difficulty: {{ recipe.difficulty }}</p>
                     </div>
                     <div class="col-md-6">
                         <p class="text-nowrap">
@@ -98,7 +94,7 @@ to register or sign in if unauthenticated -->
             </div>
           </div>
         </div>
-        {% if forloop.counter|divisibleby:3 %}
+        {% if forloop.counter|divisibleby:2 %}
       </div>
       <div class="row">{% endif %} {% endfor %}</div>
     </div>
@@ -123,11 +119,13 @@ to register or sign in if unauthenticated -->
     </ul>
   </nav>
   {% endif %}
+  {% if user.is_authenticated %}
   <div class="col-10 mt-4 offset-1">
     <div class="row">
-        <h5 class="text-center">Don't forget that you can <a class="recipe-link text-success" href="{% url 'add_recipe' %}">add your own recipes</a> to be enjoyed by the public</h4>
+        <h5 class="text-center">Don't forget that you can <a class="recipe-link text-success" href="{% url 'add_recipe' %}">add your own recipes</a> to be enjoyed by the public</h5>
     </div>
   </div>
+  {% endif %}
 </div>
 
 {% endblock %}

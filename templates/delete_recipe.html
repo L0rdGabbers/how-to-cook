@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %} {% load crispy_forms_tags %} 
 {% if request.user == recipe.author %}
 <!-- If the user is ths recipe's author, the delete recipe form will be displayed -->
-<div class="container">
+<div class="container short-page-col">
     <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
             <h1>Delete '{{ recipe.title }}'?</h1>
@@ -23,7 +23,7 @@
 {% else %}
 <!-- Should another user make their way to this page, this alert is displayed -->
 <div class="container short-page-col">
-    <div class="alert alert-info short-page-col">
+    <div class="alert alert-info">
         <div class="row">
             <div class="card-body text-center">
                 <h1>You do not have access to delete this recipe.</h1>

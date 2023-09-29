@@ -12,19 +12,19 @@ from .forms import CommentForm, RecipeForm
 class RecipeList(generic.ListView):
     """
     Displays recipes on the home page that have been both approved by an admin
-    and submitted by the recipe author 
+    and submitted by the recipe author
     """
     model = Recipe
-    queryset = Recipe.objects.filter(
-        status=1, approved=True).order_by('-created_on')
+    queryset = Recipe.objects.filter(status=1, approved=True).order_by('-created_on')
     template_name = 'index.html'
-    paginate_by = 6
+    paginate_by = 4
 
 
 class RecipePage(View):
     """
     Displays a recipe selected by the user, which can be commented and rated
     """
+
     def get(self, request, slug, *args, **kwargs):
         """
         Retrieves a user selected recipe from the database
@@ -50,7 +50,7 @@ class RecipePage(View):
                 "comment_form": CommentForm(),
             },
         )
-    
+
     def post(self, request, slug, *args, **kwargs):
         """
         When a POST method is requested via the user comment section
@@ -127,7 +127,8 @@ class MyRecipesList(generic.ListView):
         by the user
         """
         if self.request.user.is_authenticated:
-            return Recipe.objects.filter(author=self.request.user).order_by('title')
+            return Recipe.objects.filter(author=self.request.user).order_by(
+                'title')
         else:
             return []
 
@@ -135,8 +136,8 @@ class MyRecipesList(generic.ListView):
 class UpdateRecipePage(generic.UpdateView):
     """
     This view allows for the user to update their draft or submitted recipes.
-    An updated recipe is always reset to unapproved, even if previously approved
-    by an admin.
+    An updated recipe is always reset to unapproved, even
+    if previously approved by an admin.
     """
     model = Recipe
     form_class = RecipeForm
@@ -170,7 +171,7 @@ class SubmitRecipePage(generic.UpdateView):
 
     def form_valid(self, form):
         """
-        Once the user clicks on the submit button, their recipe's published 
+        Once the user clicks on the submit button, their recipe's published
         status will be set to one. If the recipe is already approved, it will
         be visible to the public.
         """

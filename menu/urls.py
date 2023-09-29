@@ -1,6 +1,5 @@
 from . import views
 from django.urls import path
-
 urlpatterns = [
     # Path to the home page
     path('', views.RecipeList.as_view(), name='home'),
@@ -10,11 +9,11 @@ urlpatterns = [
 
     # Path to the my recipes page
     path('my-recipes/', views.MyRecipesList.as_view(), name='my_recipes'),
-    
+
     # Path to a update recipe page, which pases the recipe's slug into the url
     path('update/<slug:slug>/',
          views.UpdateRecipePage.as_view(), name='update_recipe'),
-    
+
     # Path to a submit recipe page, which pases the recipe's slug into the url
     path('submit/<slug:slug>/',
          views.SubmitRecipePage.as_view(), name='submit_recipe'),
