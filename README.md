@@ -16,6 +16,10 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
   - [**Target Audience**](#target-audience)
   - [**User Stories**](#user-stories)
   - [**Site Aims**](#site-aims)
+  - [**Wireframes**](#wireframes)
+    - [**Home Pages**](#home-pages)
+    - [**Recipe Pages**](#recipe-pages)
+    - [**Form Pages**](#form-pages)
   - [**Site Flow Diagram**](#site-flow-diagram)
   - [**Database model**](#database-model)
   - [**Design**](#design)
@@ -150,6 +154,44 @@ The Time to Dine site had two main goals:
 
 1. To provide an online hub wherein people can find a cooking recipe
 2. To provide a place for people to share their own recipes on the internet in a stylish and sleek format.
+
+## **Wireframes**
+
+In order to conceptualise how the pages would display, I used Balsamiq to create some wireframes.
+
+### **Home Pages**
+
+Since the very beginning, the Time to Dine site would feature a large hero image to welcome the user, followed by a the most recently posted meals.
+
+![Home Page](assets/images/time-to-dine-home-wireframe.png)
+
+And since the categories page would essentially filter the recipes down to recipes that were listed under that category, the categories page remained more or less the same, just with a different h1 header.
+
+![Categories Page](assets/images/time-to-dine-category-wireframe.png)
+
+With regards to displaying the recipes the user had created, they would also display in a paginated format, however the image and stars would be replaced by buttons allowing the user to edit or delete their recipe. (The decision to add a pending/published status box hadn't been thought of at the time.)
+
+![My Recipes](assets/images/time-to-dine-my-recipes-wireframe.png)
+
+### **Recipe Pages**
+
+The recipe pages would feature a large image of the author's own choice, followed by the title, the date it was posted, followed by a star rating determined by the average rating posted by other users. It would also allow the user to view comments posted on that particular page.
+
+![Recipe Page](assets/images/time-to-dine-recipe-page-wireframe.png)
+
+### **Form Pages**
+
+On pages which featured creating/editing a new recipe or logging in/out, the form pages would have displayed in this format.
+
+The create new recipe page has conceptually remained the same, although the recipe category radio field was replaced with a dropdown select field instead in later development.
+
+![Create New Page](assets/images/time-to-dine-new-recipe-wireframe.png)
+
+The login, and register pages have remained the same since their inception
+
+![Register Page](assets/images/time-to-dine-sign-up-wireframe.png)
+
+![Log In Page](assets/images/time-to-dine-log-in-wireframe.png)
 
 ## **Site Flow Diagram**
 
