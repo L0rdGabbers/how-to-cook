@@ -1,272 +1,240 @@
-{% extends "base.html" %} {% block content %} 
+{% extends "base.html" %} {% block content %}
 {% load crispy_forms_tags %} {% load static %}
 {% if recipe.approved == False and request.user != recipe.author %}
 <!-- The only user that can view unapproved recipes is the author, anyone else
 will see this alert -->
 <div class="container short-page-col">
-  <div class="alert alert-info">
-    <div class="row">
-      <div class="card-body text-center">
-        <h1>This recipe has not been approved by an admin</h1>
-        <h2>
-          To view recipes that have been approved click
-          <a href="{% url 'home' %}">here.</a>
-        </h2>
-      </div>
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="card-body text-center">
+                <h1>This recipe has not been approved by an admin</h1>
+                <h2>
+                    To view recipes that have been approved click
+                    <a href="{% url 'home' %}">here.</a>
+                </h2>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% elif recipe.status == 0 and request.user != recipe.author %}
 <!-- Additionally, recipes may be approved by admins, but have not yet been 
 submitted by the author and will not be viewable by anyone but the author -->
 <div class="container short-page-col">
-  <div class="alert alert-info">
-    <div class="row">
-      <div class="card-body text-center">
-        <h1>
-          The author has not published this recipe yet, meaning it can only be
-          read by them.
-        </h1>
-        <h2>
-          To view recipes that have been published click
-          <a href="{% url 'home' %}">here.</a>
-        </h2>
-      </div>
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="card-body text-center">
+                <h1>
+                    The author has not published this recipe yet, meaning it can only be
+                    read by them.
+                </h1>
+                <h2>
+                    To view recipes that have been published click
+                    <a href="{% url 'home' %}">here.</a>
+                </h2>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% elif request.user == recipe.author or recipe.status == 1 and recipe.approved == True %}
 <!-- The recipe will always display if the user is the recipe author, and will
   only be displayed to other users if BOTH the recipe has been published
   by the author and approved by an admin  -->
 <div class="container">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      {% if commented %}
-      <!-- An alert will appear here to let the user know
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% if commented %}
+            <!-- An alert will appear here to let the user know
         that their comment has been posted -->
-      <div
-        class="alert alert-dismissible alert-success fade show"
-        id="alert-comment"
-        role="alert"
-      >
-        <p>Your comment has been successfully posted</p>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        ></button>
-      </div>
-      {% endif %}
+            <div class="alert alert-dismissible alert-success fade show" id="alert-comment" role="alert">
+                <p>Your comment has been successfully posted</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- The following is the header for a selected recipe -->
 <div class="container mb-4">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="row">
-        <h1>
-          {{ recipe.title }} {% if recipe.status == 0 %}(Draft){% endif %}
-        </h1>
-      </div>
-      <div class="row">
-        <p>{{ recipe.author }} | {{ recipe.created_on }}</p>
-      </div>
-      <div class="row">
+    <div class="row">
         <div class="col-md-6">
-          <h2 class="text-nowrap big-star">
-            <span
-              class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"
-            ></span>
-            <span
-              class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"
-            ></span>
-            <span
-              class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"
-            ></span>
-            <span
-              class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"
-            ></span>
-            <span
-              class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"
-            ></span>
-          </h2>
+            <div class="row">
+                <h1>
+                    {{ recipe.title }} {% if recipe.status == 0 %}(Draft){% endif %}
+                </h1>
+            </div>
+            <div class="row">
+                <p>{{ recipe.author }} | {{ recipe.created_on }}</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-nowrap big-star">
+                        <span class="fa fa-star {% if recipe.average_star_rating > 0 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if recipe.average_star_rating > 1 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if recipe.average_star_rating > 2 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if recipe.average_star_rating > 3 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if recipe.average_star_rating > 4 %} checked {% endif %}"></span>
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mx-2">
+                    <i class="fa-solid fa-gauge"></i>
+                    <p class="text-nowrap">{{ recipe.difficulty }}</p>
+                </div>
+                <div class="col-md-3 mx-2">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <p class="text-nowrap">{{ recipe.time_to_prepare }} minutes</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3 mx-2">
-          <i class="fa-solid fa-gauge"></i>
-          <p class="text-nowrap">{{ recipe.difficulty }}</p>
+        <div class="col-md-6">
+            <div id="recipe-image" class="image-container">
+                {% if "placeholder" in recipe.featured_image.url %}
+                <img src="{% static 'images/default.jpg' %}" class="img-fluid" alt="{{ recipe.title }}">
+                {% else %}
+                <img src=" {{ recipe.featured_image.url }} " class="img-fluid" alt="{{ recipe.title }}">
+                {% endif %}
+            </div>
         </div>
-        <div class="col-md-3 mx-2">
-          <i class="fa-solid fa-stopwatch"></i>
-          <p class="text-nowrap">{{ recipe.time_to_prepare }} minutes</p>
-        </div>
-      </div>
     </div>
-    <div class="col-md-6">
-      <div id="recipe-image" class="image-container">
-        {% if "placeholder" in recipe.featured_image.url %}
-        <img src="{% static 'images/default.jpg' %}" class="img-fluid" alt="{{ recipe.title }}">
-        {% else %}
-        <img src=" {{ recipe.featured_image.url }} " class="img-fluid" alt="{{ recipe.title }}">
-        {% endif %}
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- The following code displays the recipe's summary, details, and user 
     interactable comment box and star rating box -->
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <div id="summary" class="card-body">
-        <h3 class="card-text">{{ recipe.summary | safe }}</h3>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="row">
-        <h4>Ingredients:</h4>
-        <div class="row list-parent">
-          <ul>
-            {% for ingredient in recipe.ingredients_list %}
-            <li class="ingredient">
-              <p>{{ ingredient }}</p>
-            </li>
-            {% endfor %}
-          </ul>
+    <div class="row">
+        <div class="col">
+            <div id="summary" class="card-body">
+                <h3 class="card-text">{{ recipe.summary | safe }}</h3>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="col-md-6">
-      <div class="row">
-        <h4>Instructions:</h4>
-        <div id="instruction-list" class="row list-parent">{{ recipe.instructions | safe }}</div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <hr>
-    </div>
-  </div>
-  <div class="row">
-    {% if user.is_authenticated %}
-    <!-- Comment form and Rating, which only appear if user is logged in -->
-    <div class="col-md-8">
-      <h4>Comments:</h4>
-      <div class="card-body">
-        {% for comment in comments %}
-        <div class="container">
-          <div class="row">
-            <p class="font-weight-bold">{{ comment.name }}:</p>
-            <p>{{ comment.body | linebreaks }}</p>
-          </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <h4>Ingredients:</h4>
+                <div class="row list-parent">
+                    <ul>
+                        {% for ingredient in recipe.ingredients_list %}
+                        <li class="ingredient">
+                            <p>{{ ingredient }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-        {% endfor %}
-      </div>
+        <div class="col-md-6">
+            <div class="row">
+                <h4>Instructions:</h4>
+                <div id="instruction-list" class="row list-parent">{{ recipe.instructions | safe }}</div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-      <div class="row">
-        <h4>Leave a review:</h4>
-        <ul class="btn btn-light list-inline rating-list">
-          <li onclick="rate(5, {{ recipe.id }})">
-            <i
-              class="fa fa-star {% if recipe.user_rating > 4 %} checked {% endif %}"
-              title="Rate 5"
-            ></i>
-          </li>
-          <li onclick="rate(4, {{ recipe.id }})">
-            <i
-              class="fa fa-star {% if recipe.user_rating > 3 %} checked {% endif %}"
-              title="Rate 4"
-            ></i>
-          </li>
-          <li onclick="rate(3, {{ recipe.id }})">
-            <i
-              class="fa fa-star {% if recipe.user_rating > 2 %} checked {% endif %}"
-              title="Rate 3"
-            ></i>
-          </li>
-          <li onclick="rate(2, {{ recipe.id }})">
-            <i
-              class="fa fa-star {% if recipe.user_rating > 1 %} checked {% endif %}"
-              title="Rate 2"
-            ></i>
-          </li>
-          <li onclick="rate(1, {{ recipe.id }})">
-            <i
-              class="fa fa-star {% if recipe.user_rating > 0 %} checked {% endif %}"
-              title="Rate 1"
-            ></i>
-          </li>
-        </ul>
-      </div>
-      <div class="row">
-        {% if commented %}
-        <!-- This alert informs the user that
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        {% if user.is_authenticated %}
+        <!-- Comment form and Rating, which only appear if user is logged in -->
+        <div class="col-md-8">
+            <h4>Comments:</h4>
+            <div class="card-body">
+                {% for comment in comments %}
+                <div class="container">
+                    <div class="row">
+                        <p class="font-weight-bold">{{ comment.name }}:</p>
+                        <p>{{ comment.body | linebreaks }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <h4>Leave a review:</h4>
+                <ul class="btn btn-light list-inline rating-list">
+                    <li onclick="rate(5, {{ recipe.id }})">
+                        <i class="fa fa-star {% if recipe.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i>
+                    </li>
+                    <li onclick="rate(4, {{ recipe.id }})">
+                        <i class="fa fa-star {% if recipe.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i>
+                    </li>
+                    <li onclick="rate(3, {{ recipe.id }})">
+                        <i class="fa fa-star {% if recipe.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i>
+                    </li>
+                    <li onclick="rate(2, {{ recipe.id }})">
+                        <i class="fa fa-star {% if recipe.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i>
+                    </li>
+                    <li onclick="rate(1, {{ recipe.id }})">
+                        <i class="fa fa-star {% if recipe.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                {% if commented %}
+                <!-- This alert informs the user that
             their comment is awaiting approval -->
-        <div class="alert alert-success" role="alert">
-          Your comment is awaiting approval
+                <div class="alert alert-success" role="alert">
+                    Your comment is awaiting approval
+                </div>
+                {% else %}
+                <!-- Comment Form -->
+                <h4>Leave a comment:</h4>
+                <p>Posting as: {{ user.username }}</p>
+                <form method="post" style="margin-top: 1.3em">
+                    {{ comment_form | crispy }} {% csrf_token %}
+                    <button type="submit" name="comment_form" class="btn btn-lg">
+                        Submit
+                    </button>
+                </form>
+                {% endif %}
+            </div>
         </div>
-        {% else %}
-        <!-- Comment Form -->
-        <h4>Leave a comment:</h4>
-        <p>Posting as: {{ user.username }}</p>
-        <form method="post" style="margin-top: 1.3em">
-          {{ comment_form | crispy }} {% csrf_token %}
-          <button type="submit" name="comment_form" class="btn btn-lg">
-            Submit
-          </button>
-        </form>
         {% endif %}
-      </div>
-    </div>
-    {% endif %}
-    <!-- Comments can still be viewed by users, even if they are annonymous -->
-    <div class="col-md-12">
-      <h4>Comments:</h4>
-      <div class="card-body">
-        {% for comment in comments %}
-        <div class="container">
-          <div class="row">
-            <p class="font-weight-bold">{{ comment.name }}:</p>
-            <p>{{ comment.body | linebreaks }}</p>
-          </div>
+        {% if user.is_authenticated == False %}
+        <!-- Comments can still be viewed by users, even if they are annonymous -->
+        <div class="col-md-12">
+            <h4>Comments:</h4>
+            <div class="card-body">
+                {% for comment in comments %}
+                <div class="container">
+                    <div class="row">
+                        <p class="font-weight-bold">{{ comment.name }}:</p>
+                        <p>{{ comment.body | linebreaks }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
-      </div>
+        {% endif %}
+        {% endif %}
     </div>
-    {% endif %}
-  </div>
 </div>
 <script>
-  const rate = (rating, post_id) => {
-    /* The rate function rate will post the user's 
-      5 star rating of this recipe to the database
-      and then reload the page at the point they made the submission
-    */
-    fetch(`/rate/${post_id}/${rating}/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((rest) => {
-      window.location.reload();
-    });
-  };
-  setTimeout(function () {
-    // This function will make alert messages dissapear after 3 seconds
-    let messages = document.getElementById("alert-comment");
-    let alert = new bootstrap.Alert(messages);
-    alert.close();
-  }, 3000);
+    const rate = (rating, post_id) => {
+        /* The rate function rate will post the user's 
+          5 star rating of this recipe to the database
+          and then reload the page at the point they made the submission
+        */
+        fetch(`/rate/${post_id}/${rating}/`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((rest) => {
+            window.location.reload();
+        });
+    };
+    setTimeout(function () {
+        // This function will make alert messages dissapear after 3 seconds
+        let messages = document.getElementById("alert-comment");
+        let alert = new bootstrap.Alert(messages);
+        alert.close();
+    }, 3000);
 </script>
 
 {% endblock %}
