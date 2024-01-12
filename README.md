@@ -25,12 +25,21 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
   - [**Design**](#design)
 - [**Agile Development Process**](#agile-development-process)
   - [**Overview**](#overview)
-  - [**Admin**](#admin)
-  - [**Home Page**](#home-page)
-  - [**Registeration**](#registeration)
-  - [**Recipe Page**](#recipe-page)
-  - [**My recipes page**](#my-recipes-page)
-  - [**Add Recipe Page**](#add-recipe-page)
+  - [**Sprint 1 Notes**](#sprint-1-notes)
+    - [**Sept. 1st**](#sept-1st)
+    - [**Sept. 3rd**](#sept-3rd)
+    - [**Sept. 5th**](#sept-5th)
+    - [**Finished User Stories**](#finished-user-stories)
+  - [**Sprint 2 Notes**](#sprint-2-notes)
+    - [**Sept. 6th**](#sept-6th)
+    - [**Sept. 7th**](#sept-7th)
+    - [**Sept. 8th**](#sept-8th)
+    - [**Sept. 9th- 10th**](#sept-9th--10th)
+  - [\*\*\*\*](#)
+  - [**Sprint 3 Notes**](#sprint-3-notes)
+  - [**Sprint 4 Notes**](#sprint-4-notes)
+  - [**Sprint 5 Notes**](#sprint-5-notes)
+  - [**Sprint 5 Notes**](#sprint-5-notes-1)
   - [**Exceptions**](#exceptions)
     - [**Star Rating**](#star-rating)
     - [**Categories and Portions**](#categories-and-portions)
@@ -47,13 +56,13 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
     - [**Hero Image**](#hero-image)
     - [**Default Image**](#default-image)
     - [**Footer**](#footer)
-  - [**Home Page**](#home-page-1)
+  - [**Home Page**](#home-page)
     - [**Recipe Cards**](#recipe-cards)
     - [**Paginate Link**](#paginate-link)
     - [**Links to other pages**](#links-to-other-pages)
   - [**Categories Pages**](#categories-pages)
   - [**Recipe Form Pages**](#recipe-form-pages)
-    - [**Add Recipe Page**](#add-recipe-page-1)
+    - [**Add Recipe Page**](#add-recipe-page)
       - [**Unique Title**](#unique-title)
       - [**Required**](#required)
       - [**Ingredients comma separation**](#ingredients-comma-separation)
@@ -62,13 +71,13 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
     - [**Update Recipe Page**](#update-recipe-page)
     - [**Submit/Delete Recipe Pages**](#submitdelete-recipe-pages)
       - [**Author Only**](#author-only)
-  - [**Recipe Page**](#recipe-page-1)
+  - [**Recipe Page**](#recipe-page)
     - [**Viewer Contribution**](#viewer-contribution)
       - [**Comments**](#comments)
       - [**Commenting**](#commenting-1)
       - [**Star Rating**](#star-rating-1)
       - [**Restricted Access**](#restricted-access)
-  - [**My Recipes Page**](#my-recipes-page-1)
+  - [**My Recipes Page**](#my-recipes-page)
     - [**Recipe Status**](#recipe-status)
   - [**AllAuth Pages**](#allauth-pages)
     - [**Sign Up:**](#sign-up)
@@ -99,11 +108,11 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
   - [**CSS**](#css)
   - [**Python**](#python)
   - [**LightHouse**](#lighthouse)
-    - [**Home Page**](#home-page-2)
-    - [**Recipe Page**](#recipe-page-2)
-    - [**My recipes Page**](#my-recipes-page-2)
+    - [**Home Page**](#home-page-1)
+    - [**Recipe Page**](#recipe-page-1)
+    - [**My recipes Page**](#my-recipes-page-1)
     - [**Categories Page**](#categories-page)
-    - [**Add Recipe Page**](#add-recipe-page-2)
+    - [**Add Recipe Page**](#add-recipe-page-1)
     - [**Submit Recipe Page**](#submit-recipe-page)
     - [**Update Recipe Page**](#update-recipe-page-1)
     - [**Delete Recipe Page**](#delete-recipe-page)
@@ -237,30 +246,66 @@ I used GitHub Pages to store my Agile milestones in order to better organise my 
 Each milestone was centered around a previously created User Story, which, when being developed, would be added in the 'In Progress' tab until finally being moved to the 'Done' tab.
 This was mainly the case, besides two exceptions, which will be discussed later.
 
-## **Admin**
+## **Sprint 1 Notes**
 
-Since admin approval was required for recipes to even be rendered to the site, I decided that user stories involving admin recipe/comment approval and admin viewing should take precedence.
+This sprint was focused on the setting up the foundation for the Time to Dine project and menu app, followed by setting up the correct config vars. Additionally, the design stage took place where the database relationship diagram, wireframes and site flow diagram were created.
 
-- Recipe Approval
-- Manage Posts
+### **Sept. 1st**
 
-## **Home Page**
+- timetodine and and menu apps were created.
+- ElephantSQL and Cloudinary config vars were set up in the heroku settings.
+  
+### **Sept. 3rd**
 
-The Home Page is where the recipe cards are paginated and ordered from newest to oldest. These cards would also commit to the user story goals mentioned below by showing a difficulty, the number of minutes it would take to prepare a recipe.
+- Wireframes Created
+- Relationship Diagram Created
 
-- Site Pagination
-- Time to Prepare
-- Recipe Difficulty
+### **Sept. 5th**
+
+- Site Flow Diagram Created
+
+### **Finished User Stories**
+
+N/A
+
+## **Sprint 2 Notes**
+
+This sprint was focused on the development and rendering of the Recipe Class entities. Additionally, since admin approval was required for recipes to even be rendered to the site, I decided that user stories involving admin recipe/comment approval and admin viewing should take precedence.
+
+### **Sept. 6th**
+
+- Recipe and Comment classes were added to models.py and admin.py
+- RecipeList cass view added to views.py
+- Blank base.html created
+
+### **Sept. 7th**
+
+- Navbar and footer added to the base.html
+- index.html created and linked to views.py
+- Recipe Page class view added to views.py
+
+### **Sept. 8th**
+
+- Renders recipe names and recipe author names ina forloop in the index.html view.
+- Renders the recipe difficulty and time to prepare
+
+### **Sept. 9th- 10th**
+
+- Creates recipe_page view
+- Renders recipe image, ingredients and instructions to the recipe_page view.
+- Displays comments on recipe_page view.
+
+## ****
 
 However, the average star rating of a recipe was also meant to be added at this point, but since I had not found a way to post star ratings yet, I had decided not to commit to that user story.
 
-## **Registeration**
+## **Sprint 3 Notes**
 
 Since many site functions require the user to be logged in, it seemed sensible to provide a means of signing up and logging in/out of an account.
 
 - Account Registration
 
-## **Recipe Page**
+## **Sprint 4 Notes**
 
 Once I had created the recipe page, there was a way for user's to click on a link from the home page to a recipe of their choice, for users to see the recipe's instructions, and a place for users to submit a comment, which was already capable of being approved by an admin.
 
@@ -269,13 +314,13 @@ Once I had created the recipe page, there was a way for user's to click on a lin
 - Open a Post
 - Leave a comment
 
-## **My recipes page**
+## **Sprint 5 Notes**
 
 Since not all recipes neccesarily display to the home page, due to pending approval or publication status, the 'My Recipes' page the provides for author's not only to view their recipes, but also to submit, edit and delete them. This allowed for user CRUD functionality without the use of the admin panel.
 
 - Manage user posts
 
-## **Add Recipe Page**
+## **Sprint 5 Notes**
 
 Whilst it was possible for an admin to create a recipe from the admin page, I had decided that a core part of the Time to Dine's purpose and goal was to provide a place for any user to submit a recipe. That being said, I wanted to make sure that any recipe submitted, like any posted comment, would be appropriate and so I also decided to ensure that recipes, when created, are always set to unapproved.
 
