@@ -35,14 +35,18 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
     - [**Sept. 7th**](#sept-7th)
     - [**Sept. 8th**](#sept-8th)
     - [**Sept. 9th- 10th**](#sept-9th--10th)
-  - [\*\*\*\*](#)
+    - [**Finished User Stories**](#finished-user-stories-1)
   - [**Sprint 3 Notes**](#sprint-3-notes)
+    - [**Sept. 10th**](#sept-10th)
+    - [**Sept. 11th**](#sept-11th)
+    - [**Sept. 14th**](#sept-14th)
+    - [**Sept. 15th**](#sept-15th)
+    - [**Sept. 17th**](#sept-17th)
+    - [**Finished User Stories**](#finished-user-stories-2)
   - [**Sprint 4 Notes**](#sprint-4-notes)
-  - [**Sprint 5 Notes**](#sprint-5-notes)
-  - [**Sprint 5 Notes**](#sprint-5-notes-1)
-  - [**Exceptions**](#exceptions)
-    - [**Star Rating**](#star-rating)
-    - [**Categories and Portions**](#categories-and-portions)
+    - [**Sept. 17th - 23rd**](#sept-17th---23rd)
+    - [**Sept. 25th**](#sept-25th)
+    - [**Finished User Stories**](#finished-user-stories-3)
 - [**Features**](#features)
   - [**Multiple Pages**](#multiple-pages)
     - [**Navbar**](#navbar)
@@ -75,7 +79,7 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
     - [**Viewer Contribution**](#viewer-contribution)
       - [**Comments**](#comments)
       - [**Commenting**](#commenting-1)
-      - [**Star Rating**](#star-rating-1)
+      - [**Star Rating**](#star-rating)
       - [**Restricted Access**](#restricted-access)
   - [**My Recipes Page**](#my-recipes-page)
     - [**Recipe Status**](#recipe-status)
@@ -121,6 +125,10 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
     - [**Logout Page**](#logout-page)
   - [**Manual Testing**](#manual-testing)
 - [**Deployment**](#deployment)
+  - [**Files to be created**](#files-to-be-created)
+  - [**Resources**](#resources)
+  - [**Config Vars**](#config-vars)
+  - [**Deployment Steps**](#deployment-steps)
 - [**Technologies Used**](#technologies-used)
 - [**Honourable Mentions**](#honourable-mentions)
 - [**Credits**](#credits)
@@ -295,49 +303,71 @@ This sprint was focused on the development and rendering of the Recipe Class ent
 - Renders recipe image, ingredients and instructions to the recipe_page view.
 - Displays comments on recipe_page view.
 
-## ****
+### **Finished User Stories**
 
-However, the average star rating of a recipe was also meant to be added at this point, but since I had not found a way to post star ratings yet, I had decided not to commit to that user story.
+- As a site user, I can view a paginated list of posts so that I can easily select a recipe that catches my interest.
+- As a site user, I can open a post so that I can see what ingredients and steps I need to take to prepare a recipe.
+- As a site user, I can see the difficulty rating of a recipe on a post so that I can gauge whether or not I am skilled enough to prepare this recipe.
+- As a site user/admin, I can view the comments on a post so that I can see other people's opinions of a recipe.
+- As a site user, I can see the estimated time required to prepare a certain recipe so that I can determine whether I have enough time or plan my cooking schedule ahead.
+- As a site user, I can click on a link to a step-by-step guide so that I can follow the recipe instructions clearly.
+- As a user, I can see how many portions a recipe serves so that I can plan how much I need to prepare according to the number of people I will be cooking for.
+
+- As a site admin, I can create, read, update, and delete posts so that I can manage the site's content.
+- As an admin, I can approve submitted recipes so that they can be viewed and enjoyed by the site users.
 
 ## **Sprint 3 Notes**
 
-Since many site functions require the user to be logged in, it seemed sensible to provide a means of signing up and logging in/out of an account.
+This sprint was focused on the authorised user aspects of the site, namely allowing the user to have access to parts of the website that are specific to logged in users, namely posting one's own recipe and leaving comments.
 
-- Account Registration
+### **Sept. 10th**
+
+- Installs allauth and creates the register, login and logout pages.
+
+### **Sept. 11th**
+
+- Adds styling to the auth pages.
+- Adds commenting functionality to the recipe_page view so that logged in users can leave comments on the page.
+
+### **Sept. 14th**
+
+- Adds post recipe functionality
+
+### **Sept. 15th**
+
+- Creates the my_recipes view, allowing the user to view their approved, posted recipes.
+- Ensures that unnaproved recipes can only be viewed by the author.
+
+### **Sept. 17th**
+
+- In the my_recipes view, Submit, Edit, and Delete buttons are added to each recipe card. If the recipe has been submitted, the submit button is replaced with a Pending/Approved status bar to display whether a recipe has been approved by an admin or not.
+- Creates update and submit recipe views, and ensures that only users who are the recipe owner can submit or edit a recipe.
+
+### **Finished User Stories**
+
+- As a site user, I can register for an account so that I can comment and review other people's recipes, as well as post my own ones.
+- As a site user, I can leave a comment so that I can be a part of the conversation regarding a particular recipe.
+- As a site user, I can update and delete my own recipes so that I can correct or erase any mistakes I have made in my recipes.
+- As a site user/admin, I can create draft posts so that I can finish writing the recipe later.
 
 ## **Sprint 4 Notes**
 
-Once I had created the recipe page, there was a way for user's to click on a link from the home page to a recipe of their choice, for users to see the recipe's instructions, and a place for users to submit a comment, which was already capable of being approved by an admin.
+This sprint focussed on the styling of the pages as well as the implementation of a star rating system, which calculated the average rating of a recipe posted by all users.
 
-- Comments
-- Recipe Instructions
-- Open a Post
-- Leave a comment
+### **Sept. 17th - 23rd**
 
-## **Sprint 5 Notes**
+- During this period, I spent quite a long time researching and implementing a star rating system.
+- Adds alert messages to notify the user whether any form they submit was submitted successfully.
 
-Since not all recipes neccesarily display to the home page, due to pending approval or publication status, the 'My Recipes' page the provides for author's not only to view their recipes, but also to submit, edit and delete them. This allowed for user CRUD functionality without the use of the admin panel.
+### **Sept. 25th**
 
-- Manage user posts
+- Adds recipe category page, so that users can filter recipes by category.
 
-## **Sprint 5 Notes**
+### **Finished User Stories**
 
-Whilst it was possible for an admin to create a recipe from the admin page, I had decided that a core part of the Time to Dine's purpose and goal was to provide a place for any user to submit a recipe. That being said, I wanted to make sure that any recipe submitted, like any posted comment, would be appropriate and so I also decided to ensure that recipes, when created, are always set to unapproved.
-
-- Recipe Approval (revisited)
-- Create Draft Posts
-
-## **Exceptions**
-
-Two types of exception occured during development: the first involving the star rating system, and the second involving recipe portions and recipe categories.
-
-### **Star Rating** 
-
-Due to the challenging and also unfamiliar teritory involving the star rating system's functionality, this user story kept being put off. After putting it off for so long, it eventually became the last user story on my Agile Project Board. After spending two evening sessions trying to create a Star class based view (and failing) I eventually came across a page explaining in detail how to post a star review and how to display an average of those posts. Whilst I am dissapointed in myself for putting off a task I had meant to do for a whole week, I do believe that the previously discussed user stories did take precedence. I've learnt from this to ensure the most fundamental tasks are to be completed first before too much time on a desirable but ultimately small feature.
-
-### **Categories and Portions**
-
-After finishing implementing all of my user stories, I had thought of two very useful features that I hadn't included in my project, the ability to class a recipe by into a certain food category, and a feature which displays how many portions a particular recipe will serve. Since I had enought time to update my Recipe's model and forms, I decided to update my User Stories and include these features, however I do wish that I had spent more time brainstorming these sorts of ideas earlier on so that I could have less time on updating my site, and more ironing out other problems.
+- As a site user, I can select a particular category of food so that I can see a list of recipes that match the category of food I want to cook.
+- As a site user/admin, I can see a rating of 1 to 5 stars on each post so that I can see which recipes are the most popular.
+- As a site user, I can submit a review of 1-5 stars so that I can help other people decide whether they want to prepare this recipe themselves.
 
 # **Features**
 
@@ -818,6 +848,29 @@ Below is a summary of how I manually tested each user story.
 
 # **Deployment**
 
+## **Files to be created**
+
+- An env.py file was used during development to keep all environ variables safely hidden from commits.
+- requirements.txt was used to store all of the projects dependencies.
+- .gitignore: This file was used to keep certain files from being commited to GitHub, the most important being the env.py file.
+
+## **Resources**
+
+- ElephantSQL was used for a database. To set up the database, Django's "python manage.py migrate" command was used. To create super users, Django's "python manage.py createsuperuser" was used.
+- Cloudinary was used to store images posted by the user for their recipe posts.
+
+## **Config Vars**
+
+- When deployed to heroku, the CLOUDINARY_URL, DATABASE_URL, PORT, and the SECRET_KEY, config vars were implemented and remain hidden.
+- An additional config var, HEROKU_POSTGRESQL_AMBER_URL, was automatically created and hasn't been changed.
+
+
+## **Deployment Steps**
+
+- I linked my Heroku project to my github repository
+- I created the matching config vars
+- I added the heroku url to the allowed hosts in settings.py and deployed the website successfully.
+
 The fully deployed site can be found here on Heroku [here](https://time-to-dine-0c73767650ec.herokuapp.com/)
 
 # **Technologies Used**
@@ -825,7 +878,7 @@ The fully deployed site can be found here on Heroku [here](https://time-to-dine-
 * BootStrap 5.0.1: Used as a quick method of having some styling in the early stages of the project.
 * CSS: Used to adjust some of Bootstrap-5's inherited styling.
 * Django: Used as the python framework.
-  * Django AllAuth: sign in, sign up, sign out.
+* Django AllAuth: sign in, sign up, sign out.
 * ElephantSQL: Used to host the database for this site, also elephants rule!
 * FontAwesome: Used for icons in the website.
 * Heroku: Finished site deployed to Heroku
