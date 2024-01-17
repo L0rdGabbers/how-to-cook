@@ -124,11 +124,12 @@ Time to Dine is a community recipe sharing site. The site provides an opportunit
     - [**Login Page**](#login-page)
     - [**Logout Page**](#logout-page)
   - [**Manual Testing**](#manual-testing)
-- [**Deployment**](#deployment)
-  - [**Files to be created**](#files-to-be-created)
-  - [**Resources**](#resources)
-  - [**Config Vars**](#config-vars)
-  - [**Deployment Steps**](#deployment-steps)
+- [Deployment](#deployment)
+  - [Files to be Created](#files-to-be-created)
+  - [Resources](#resources)
+  - [Config Vars](#config-vars)
+  - [Deployment Steps](#deployment-steps)
+  - [Access the Deployed Site](#access-the-deployed-site)
 - [**Technologies Used**](#technologies-used)
 - [**Honourable Mentions**](#honourable-mentions)
 - [**Credits**](#credits)
@@ -845,31 +846,48 @@ Below is a summary of how I manually tested each user story.
 |:-------:|:--------|
 | &check; | On the recipe card, and on the recipe page, the recipe's portion servings is clearly displayed |
 
+# Deployment
 
-# **Deployment**
+## Files to be Created
 
-## **Files to be created**
+During development, the following files were used and are essential for deployment:
 
-- An env.py file was used during development to keep all environ variables safely hidden from commits.
-- requirements.txt was used to store all of the projects dependencies.
-- .gitignore: This file was used to keep certain files from being commited to GitHub, the most important being the env.py file.
+- **env.py:** Used to store environment variables securely.
+- **requirements.txt:** Contains all project dependencies.
+- **.gitignore:** Prevents certain files, especially the env.py file, from being committed to GitHub.
 
-## **Resources**
+## Resources
 
-- ElephantSQL was used for a database. To set up the database, Django's "python manage.py migrate" command was used. To create super users, Django's "python manage.py createsuperuser" was used.
-- Cloudinary was used to store images posted by the user for their recipe posts.
+The project utilizes the following external resources:
 
-## **Config Vars**
+- **ElephantSQL:** Used as the database. To set up the database, run `python manage.py migrate`. Superusers can be created using `python manage.py createsuperuser`.
+- **Cloudinary:** Utilized for storing images uploaded by users for their recipe posts.
 
-- When deployed to heroku, the CLOUDINARY_URL, DATABASE_URL, PORT, and the SECRET_KEY, config vars were implemented and remain hidden.
-- An additional config var, HEROKU_POSTGRESQL_AMBER_URL, was automatically created and hasn't been changed.
+## Config Vars
 
+When deploying to Heroku, ensure the following config vars are implemented and remain hidden:
 
-## **Deployment Steps**
+- **CLOUDINARY_URL**
+- **DATABASE_URL**
+- **PORT**
+- **SECRET_KEY**
+- **HEROKU_POSTGRESQL_AMBER_URL** (automatically created)
 
-- I linked my Heroku project to my github repository
-- I created the matching config vars
-- I added the heroku url to the allowed hosts in settings.py and deployed the website successfully.
+## Deployment Steps
+
+1. **Link Heroku Project to GitHub Repository:**
+   - Connect your Heroku project to the corresponding GitHub repository.
+
+2. **Configure Config Vars:**
+   - In your Heroku project settings, add the necessary config vars matching those mentioned above.
+
+3. **Update Allowed Hosts in settings.py:**
+   - Add the Heroku URL to the `ALLOWED_HOSTS` in your project's `settings.py` file.
+
+4. **Deploy the Website:**
+   - Deploy the website to Heroku using the necessary commands or through the Heroku dashboard.
+
+## Access the Deployed Site
 
 The fully deployed site can be found here on Heroku [here](https://time-to-dine-0c73767650ec.herokuapp.com/)
 
